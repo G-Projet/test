@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //
 //  code.c
 //  
@@ -7,3 +8,6 @@
 
 #include "code.h"
 
+=======
+#include "code.h"
+>>>>>>> 221f865c0ea15aa20a2dff05fcbe50df7f168dd6

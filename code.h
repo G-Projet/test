@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //
 //  code.h
 //  
@@ -10,3 +11,10 @@
 
 
 #endif //CODE_H_INCLUDED
+=======
+#ifndef CODE_H_INCLUDED
+#define CODE_H_INCLUDED
+
+
+#endif//CODE_H_INCLUDED
+>>>>>>> 221f865c0ea15aa20a2dff05fcbe50df7f168dd6
