@@ -1,4 +1,4 @@
-//
+INT MIN//
 //  bonjour.c
 //  
 //
@@ -7,9 +7,10 @@
 //
 #include<stdio.h>
 #include <stdlib.h>
-void Bonjour (void)
+int main () 
 {
     /* afficher le mot bonjour et saut de ligne */
-    printf("Bonjour!!\n");
+    printf("Hello world , I'm Claudine!\n");
+    return 2;
     
 }
