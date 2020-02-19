@@ -10,5 +10,5 @@
 int main ()
 {
     printf ("Hello world! My name is ....\n");
-    return 0;
+    return 2;
 }
