@@ -10,7 +10,7 @@
 int main () 
 {
     /* afficher le mot bonjour et saut de ligne */
-    printf("Hello world , I'm Claudine!\n");
+    printf("Hello world , It's  Claudine 's new version!\n");
     return 2;
     
 }
