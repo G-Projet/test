@@ -1,11 +1,9 @@
 
 CC=gcc
 
-FLAGS=-Wall -g
-
-#CPPFLAGS = -I. -I$(HOME)/SDL2/include $(shell sdl2-config --cflags)  
+FLAGS=-Wall -g 
  
-SDL_DIR=${SDL2}/SDL2
+SDL_DIR=${HOME}/SDL2
 
 SDLLIB_DIR=${SDL_DIR}/lib
 SDLINC_DIR=${SDL_DIR}/include 
@@ -13,14 +11,25 @@ SDLINC_DIR=${SDL_DIR}/include
 LIBS=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image
 INCS=-I${SDLINC_DIR} 
 
-PROG=sdl_test 
+PROG=exe
 
-all: sdl_text
 
-sdl_text: sdl_test.c
-	${CC} -o ${PROG} sdl_test.c ${LIBS} ${INCS} ${FLAGS}
+all: exe
+
+exe: sdl.o fonction.o
+	${CC} -o ${PROG} sdl.o fonction.o ${LIBS} ${INCS} ${FLAGS}
+
+	
+main.o: sdl.c fonction.h
+	${CC} -o sdl.o -c sdl.c ${LIBS} ${INCS} ${FLAGS}
+
+fonction.o: fonction.c
+	${CC} -o fonction.o -c fonction.c ${LIBS} ${INCS} ${FLAGS}
 
 clean:
+
 	rm -f ${PROG}
 	rm -f *.o
+
+	
 
