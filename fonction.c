@@ -48,18 +48,9 @@ char message_erreurs(const char* message )
 	SDL_Quit(); // On quitte la SDL
 	return EXIT_FAILURE;
 }
-
-extern 
-void arret_programme(SDL_Surface* image,SDL_Renderer* renderer,SDL_Window * window)
-{
-	SDL_FreeSurface(image); //permet de libérer la mémoire quand on n'a plus besoin d'une surface
-	SDL_DestroyRenderer(renderer); // Destruction du renderer  
-	SDL_DestroyWindow(window); // Close and destroy the window
-}	
-	
 	
 extern
-void clean_ressources(SDL_Window*w, SDL_Renderer *r, SDL_Texture *t) // libération des resources subsistantes
+void clean_ressources(SDL_Window* w, SDL_Renderer *r,SDL_Surface* image, SDL_Texture *t) // libération des resources subsistantes
 {
 	if(t!=NULL)
 		SDL_DestroyTexture(t);
@@ -67,6 +58,8 @@ void clean_ressources(SDL_Window*w, SDL_Renderer *r, SDL_Texture *t) // libérat
 		SDL_DestroyRenderer(r);
 	if(w!=NULL)
 		SDL_DestroyWindow(w);
+	if(image!=NULL)
+		SDL_FreeSurface(image); //permet de libérer la mémoire quand on n'a plus besoin d'une surface
 }
 	
 	

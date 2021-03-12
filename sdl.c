@@ -1,5 +1,7 @@
 
 
+//  valgrind --leak-check=full ./exe
+
 /**
 * \file sdl.c
 * \brief Contient toutes les fonctions pour interface graphique
@@ -28,7 +30,7 @@ int main(int argc, char** argv)
 	
 	if(SDL_Init(SDL_INIT_VIDEO)!=0) //Gestion des erreurs, initialisation sdl
 	{
-		clean_ressources(NULL,NULL,NULL);
+		clean_ressources(NULL,NULL,NULL,NULL);
 		message_erreurs("initialisation");
 	}
 
@@ -43,7 +45,7 @@ int main(int argc, char** argv)
     			
 	if(window == NULL) // Gestion des erreurs
 	{
-		clean_ressources(NULL,NULL,NULL);
+		clean_ressources(NULL,NULL,NULL,NULL);
 		message_erreurs("Ouverture Window");
 	}
 	
@@ -53,40 +55,41 @@ int main(int argc, char** argv)
 
 	if(renderer == NULL)//gestion des erreurs
 	{
-		clean_ressources(window,NULL,NULL);
+		clean_ressources(window,NULL,NULL,NULL);
 		message_erreurs("création renderer");
 	}
 
 	//affichage d'une image
 
-	image = IMG_Load("paysage.png");// chargement de l'image
-
+ 
+	//image=IMG_Load("image/paysage.png");// chargement de l'image
+	image=IMG_Load("image/duck.png");// chargement de l'image
 	if(image==NULL)
 	{
-		clean_ressources(window,renderer, NULL);
+		clean_ressources(window,renderer,NULL, NULL);
 		message_erreurs("Chargement image");
 	}
 
 	texture = SDL_CreateTextureFromSurface(renderer,image);
 
-	SDL_FreeSurface(image);// libération de l'image
+	//SDL_FreeSurface(image);// libération de l'image
 
 	if(texture==NULL)
 	{
-		clean_ressources(window,renderer, NULL);
+		clean_ressources(window,renderer, image,NULL);
 		message_erreurs("Texture");
 	}
 
 	if(SDL_QueryTexture(texture,NULL,NULL,&dest_rect.w,&dest_rect.h)!=0)
 	{
-		clean_ressources(window,renderer, texture);
+		clean_ressources(window,renderer, image,texture);
 		message_erreurs("Texture application");
 	}
 
 
 	if(SDL_RenderCopy(renderer,texture,NULL,&dest_rect)!=0)
 	{
-		clean_ressources(window,renderer, texture);
+		clean_ressources(window,renderer, image,texture);
 		message_erreurs("Création rendu ");
 	}
 
@@ -98,7 +101,7 @@ int main(int argc, char** argv)
 
 	//SDL_Delay(3000); // Pause execution for 5000 milliseconds, for example
 	
-	clean_ressources(window,renderer, texture);
+	clean_ressources(window,renderer, image,texture);
 
 	printf(" %d s écoulées \n",SDL_GetTicks()/1000);// le temps d'éxecution de la SDL
 
