@@ -18,21 +18,34 @@ void bienvenus()
 }
 
 extern
-void sdl_init(bool* const error, int (*sdlInit)(int*))
+void evenement (SDL_bool program_launched )
 {
-  //if (SDL_Init(SDL_INIT_VIDEO) == 0)
+	while(program_launched)
+	{
+		SDL_Event event;
 
-  //if (sdlInit) == 0)
+		while(SDL_PollEvent(&event))
+		{
+			switch(event.type)
+			{    
+			  	/* Gestion des évenements claviers ou souris  */
 
-	if(sdlInit) // -1
+				case SDL_QUIT:
+					program_launched = SDL_FALSE;
+					break;
 
-      *error = TRUE;
+				default:
+					break;
+			}
+		}
+	}
 }
 
 extern
-char message_erreurs()
+char message_erreurs(const char* message )
 {
-	fprintf(stderr, "U5_SDL.c > SDL init failed (%s)\n", SDL_GetError());
+	fprintf(stderr, "ERREUR : %s >(%s)\n", message, SDL_GetError());
+	SDL_Quit(); // On quitte la SDL
 	return EXIT_FAILURE;
 }
 
@@ -57,7 +70,7 @@ void clean_ressources(SDL_Window*w, SDL_Renderer *r, SDL_Texture *t) // libérat
 }
 	
 	
-	
+
 	
 	
 
