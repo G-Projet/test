@@ -8,7 +8,8 @@
 
 site documentation : SDL :  https://wiki.libsdl.org/
 
-*************  gestion évenements :
+*************  gestion événements :
+// clavier : 
 
 https://wiki.libsdl.org/SDL_Keycode
  
