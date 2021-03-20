@@ -7,12 +7,22 @@
 
 site documentation : SDL :  https://wiki.libsdl.org/
 
+Debugage : 
+
+//  valgrind --leak-check=full ./exe
+
 *************  gestion événements :
 
 // clavier : 
 
 https://wiki.libsdl.org/SDL_Keycode
- 
+
+//   http://sdz.tdct.org/sdz/simplifier-les-events-avec-sdl.html#UnexempleenC
+https://wiki.libsdl.org/SDL_LowerBlit
+https://devopssec.fr/article/gestion-des-differents-evenements-sdl-2
+https://zestedesavoir.com/tutoriels/1014/utiliser-la-sdl-en-langage-c/dessiner-dans-la-fenetre/
+
+
 extern void evenement (SDL_bool program_launched )
 {
 	//program_launched = SDL_TRUE;

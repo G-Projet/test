@@ -1,51 +1,23 @@
 
-//  valgrind --leak-check=full ./exe
-
 /**
 * \file sdl.c
 * \brief Contient toutes les fonctions pour interface graphique
 * \date Mardi 01 mars 2021
 */
 
-#include <stdio.h>
-#include<stdlib.h>
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_image.h>
-
 #include "fonction.h"
 
 int main(int argc, char** argv)
 {
 	bienvenus();
-
-	SDL_Window * window    = NULL; // Declare a pointer
-	SDL_Renderer* renderer = NULL;//Déclaration du rendu
-	//SDL_Surface * image    = NULL; 
-	SDL_Texture * texture  = NULL; // creation d'image sur la fenetre
-	
-	SDL_Rect dest_rect     = {0,0,640,480}; // encadrement pour le rendu 
-	
-	SDL_Surface *texte=NULL, *image=NULL;
-    SDL_Surface *perso=NULL;
-    
-    	
-	TTF_Font *police = NULL; // Le pointeur vers notre police
-	// Une variable de couleur noire
-	SDL_Color couleurNoire = {0, 0, 0};
-	SDL_Color couleurBlanche = {255, 255, 255};
-	
-	
-	
+ 
 	if(SDL_Init(SDL_INIT_VIDEO)!=0) //Gestion des erreurs, initialisation sdl
 	{
 		clean_ressources(NULL,NULL,NULL,NULL);
 		message_erreurs("initialisation");
 	}
 
-   window = SDL_CreateWindow(
+   	window = SDL_CreateWindow(
         		"Duck_Tales",                       // window title
         		SDL_WINDOWPOS_CENTERED,           // initial x position
         		SDL_WINDOWPOS_CENTERED,           // initial y position
@@ -53,8 +25,9 @@ int main(int argc, char** argv)
         		480,                               // height, in pixeldanss
         		0                  // flags - see below
     			);
-    			
-   /*  SDL_DisplayMode DM;
+    /*
+    //Gestion de la surface de l'écran 			
+    SDL_DisplayMode DM;
 	SDL_GetCurrentDisplayMode(0, &DM);
 	
 	printf("width : %d, height : %d\n", DM.w, DM.h);
@@ -72,7 +45,6 @@ int main(int argc, char** argv)
 		message_erreurs("Ouverture Window");
 	}
 
-
 	// Création du renderer			
 
 	renderer = SDL_CreateRenderer(window, -1,   SDL_RENDERER_SOFTWARE );//SDL_RENDERER_ACCELERATED);
@@ -84,18 +56,10 @@ int main(int argc, char** argv)
 		clean_ressources(window,NULL,NULL,NULL);
 		message_erreurs("création renderer");
 	}
-/*
-	if( (police = TTF_OpenFont("ChowFun.ttf", 20)) == NULL){
-		fprintf(stderr, "erreur chargement font\n");
-		exit(EXIT_FAILURE);
-	}
-*/
 
 	//affichage d'une image
 
- 
-	image=IMG_Load("image/demarage.jpg");// chargement de l'image
-	//image=IMG_Load("image/duck.png");// chargement de l'image
+	image=IMG_Load("image/Générique.jpg");// chargement de l'image
 	
 	if(image==NULL)
 	{
@@ -119,7 +83,6 @@ int main(int argc, char** argv)
 		message_erreurs("Texture application");
 	}
 
-
 	if(SDL_RenderCopy(renderer,texture,NULL,&dest_rect)!=0)
 	{
 		clean_ressources(window,renderer, image,texture);
@@ -131,8 +94,6 @@ int main(int argc, char** argv)
 	/******** gestion évenement *******/
 
 	evenement(SDL_TRUE); // program_launched = SDL_TRUE;
-
-	//SDL_Delay(3000); // Pause execution for 5000 milliseconds, for example
 	
 	clean_ressources(window,renderer, image,texture);
 

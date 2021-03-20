@@ -1,5 +1,7 @@
 
 
+#include "init.h"
+
 SDL_Surface *ecran, *imageDeFond, *zozor;
 
 extern void bienvenus();
