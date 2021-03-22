@@ -1,5 +1,5 @@
-CIBLE = DuckTales
 
+CIBLE = DuckTales
 
 CC=gcc
 
@@ -52,11 +52,24 @@ remove: clean
 	@echo "Exécutable et documentation supprimés!"
 
 .PHONY: docs
+
 docs:
 	@doxygen
 
 	
 
+
+#CIBLE = DuckTales
+
+#CC=gcc
+
+#FLAGS=-Wall -g 
+ 
+#SDL_DIR=${HOME}/SDL2
+#SDLLIB_DIR=${SDL_DIR}/lib
+#SDLINC_DIR=${SDL_DIR}/include 
+#LIBS=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image
+#INCS=-I${SDLINC_DIR} 
 #PROG=exe
 
 

@@ -85,7 +85,7 @@ int main (int argc, char *argv[])
 						for(i = 1; i<4; i++)
 						{
 							temp_actuel = SDL_GetTicks();
-							if (temp_actuel - temp_precedent > 35)
+							if (temp_actuel - temp_precedent > 35)// /1000(millième de secondes)
 							{
 								SDL_BlitSurface (map_test, NULL,win_surf, NULL); // arrière plan
 								SDL_BlitSurface(haut[j], NULL, win_surf, &curr);
