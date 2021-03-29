@@ -22,7 +22,7 @@ int main (int argc, char *argv[])
     int temp_actuel = 0;
     int temp_precedent = 0;
     
-    curr.x = 450;
+    curr.x = 450;  
     curr.y = 450;
  	
  	/*
@@ -42,7 +42,7 @@ int main (int argc, char *argv[])
         SDL_WINDOW_SHOWN
     );
       
-             map_test = IMG_Load("image/paysage2.jpg");
+             map_test = IMG_Load("image/paysage0.png");
  
              //SDL_PixelFormat* SDL_AllocFormat(Uint32 pixel_format)
 
@@ -64,7 +64,7 @@ int main (int argc, char *argv[])
   
 	win_surf = SDL_GetWindowSurface(window);
 	 
-	SDL_BlitSurface (map_test, NULL,win_surf, NULL); // arrière plan = copie la photo sur l'ecran
+	SDL_BlitSurface (map_test, NULL,win_surf, &dest_rect ); // arrière plan = copie la photo sur l'ecran
 	SDL_BlitSurface (bas[1], NULL, win_surf, &curr);// position de duck
 		
 	while (!quit)
@@ -87,7 +87,7 @@ int main (int argc, char *argv[])
 							temp_actuel = SDL_GetTicks();
 							if (temp_actuel - temp_precedent > 35)// /1000(millième de secondes)
 							{
-								SDL_BlitSurface (map_test, NULL,win_surf, NULL); // arrière plan
+								SDL_BlitSurface (map_test, NULL,win_surf, &dest_rect); // arrière plan
 								SDL_BlitSurface(haut[j], NULL, win_surf, &curr);
 								j++;
 								if(j<4)
@@ -108,7 +108,7 @@ int main (int argc, char *argv[])
 							temp_actuel = SDL_GetTicks();
 							if (temp_actuel - temp_precedent > 35)
 							{
-								SDL_BlitSurface (map_test, NULL,win_surf, NULL); // arrière plan
+								SDL_BlitSurface (map_test, NULL,win_surf, &dest_rect); // arrière plan
 								SDL_BlitSurface(bas[i], NULL, win_surf, &curr);
 								i++;
 								if(i<4)
@@ -130,7 +130,7 @@ int main (int argc, char *argv[])
 								k++;
 								if(k<4)
 									k = 1;
-									SDL_BlitSurface (map_test, NULL,win_surf, NULL); // arrière plan
+									SDL_BlitSurface (map_test, NULL,win_surf, &dest_rect); // arrière plan
 									SDL_BlitSurface(gauche[k], NULL, win_surf, &curr);
 									temp_precedent = temp_actuel;
 							}
@@ -148,7 +148,7 @@ int main (int argc, char *argv[])
 							
 							if (temp_actuel - temp_precedent > 35)
 							{
-								SDL_BlitSurface (map_test, NULL,win_surf, NULL); // arrière plan
+								SDL_BlitSurface (map_test, NULL,win_surf, &dest_rect); // arrière plan
 								SDL_BlitSurface(droite[i], NULL, win_surf, &curr);
 								i++;
 								if(i<4)

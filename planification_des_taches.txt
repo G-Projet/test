@@ -24,3 +24,48 @@ ce qui rest à faire :
 	- definir les algorithmes de deplacement(voir l'écran comme une matrice, l'iténiraire doit correspondre à un chemin bien défini sur la matrice)
 	
 	- definir un algorithme pour jouer contre l'ordinateur(minMax)
+	
+	***********************************
+	
+	conception du jeu : 
+	
+		1 - un générique ( - un mot de bienvenue, 
+						   - une photo du jeu, ...)
+		
+		2 - une page de menu: 
+				- jouer seul
+				- jouer contre l'ordinateur 
+				
+		3 - une page de jeu (chemin 1) 
+				- itinéraire 
+				- personnage en déplacement 
+				
+		4 - une page de jeu (chemin 2 )
+				- déplacement du canard + obstacles 
+				- victoire / échec 
+				
+		nb: - affichage du temps ecoulé
+			- affichage du score 
+			
+		5 - page de cloture 
+				- fermer le jeu 
+				- recommencer.
+				
+				
+				
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

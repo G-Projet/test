@@ -20,11 +20,11 @@ SDL_Surface *perso=NULL;
 
 SDL_Texture * texture  = NULL; // creation d'image sur la fenetre
  
-SDL_Rect dest_rect     = {0,0,640,480}; // encadrement pour le rendu 
+SDL_Rect dest_rect     = {10,100,1500,600};//{0,0,640,480}; // encadrement pour le rendu 
 	
 TTF_Font *police = NULL; // Le pointeur vers notre police
 
-// Une variable de couleur noire
+// Une variable de couleur noirecd c
 SDL_Color couleurNoire = {0, 0, 0};
 SDL_Color couleurBlanche = {255, 255, 255};
 

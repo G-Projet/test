@@ -5,6 +5,10 @@
 * \date Mardi 12 mars 2021
 */
 
+
+https://alexandre-laurent.developpez.com/tutoriels/sdl-2/afficher-sprites-sdl-2/
+
+
 site documentation : SDL :  https://wiki.libsdl.org/
 
 Debugage : 
