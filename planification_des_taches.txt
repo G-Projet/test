@@ -27,7 +27,7 @@ ce qui rest à faire :
 	
 	***********************************
 	
-	conception du jeu : 
+	conception du jeu :   lun. 29 mars 2021 08:53:14 
 	
 		1 - un générique ( - un mot de bienvenue, 
 						   - une photo du jeu, ...)
