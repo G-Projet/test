@@ -13,19 +13,28 @@ INCS=-I${SDLINC_DIR}
 
 LDFLAGS=${LIBS} ${INCS} ${FLAGS}
 
-PROG=affichage
-
-all:affichage 
+PROG1=affichage1 
+PROG2=affichage2
  
-affichage: affichage.o 
-	${CC} -o ${PROG} affichage.o ${LDFLAGS} 
+all:affichage1 affichage2
+ 
+affichage1: affichage.o 
+	${CC} -o ${PROG1} affichage.o ${LDFLAGS} 
        
 affichage.o: affichage.c initialisation.h
 	${CC} -o affichage.o -c affichage.c ${LDFLAGS}
+
+
+
+affichage2: affichage2.o 
+	${CC} -o ${PROG2} affichage2.o ${LDFLAGS} 
+       
+affichage2.o: affichage2.c initialisation.h
+	${CC} -o affichage2.o -c affichage2.c ${LDFLAGS}
  
 clean:
 
-	rm -f ${PROG}
+	rm -f ${PROG1} ${PROG2}
 	rm -f *.o
 
 

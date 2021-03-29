@@ -41,10 +41,12 @@ extern void evenement (SDL_bool program_launched )
 			{    
 				/*
 				// gestion de la souris 
+				
 				//case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
 					//event.motion.xrel || yrel (position relative)
 					printf(" %d | %d \n",event.motion.x,event.motion.y);
 					break;
+					
 				case SDL_MOUSEBUTTONDOWN: // gestion coordonnées de la souris 
 					//if(event.button.clicks>=2)
 					//	printf("Double clic \n");

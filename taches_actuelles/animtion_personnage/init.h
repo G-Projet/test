@@ -20,7 +20,11 @@ SDL_Surface *perso=NULL;
 
 SDL_Texture * texture  = NULL; // creation d'image sur la fenetre
  
-SDL_Rect dest_rect     = {10,100,1500,600};//{0,0,640,480}; // encadrement pour le rendu 
+ //                        x  y   l  largeur
+SDL_Rect dest_rect     = {0,200,1500,600};//{0,200,1500,600};//{0,0,640,480}; // encadrement pour le rendu 
+
+
+
 	
 TTF_Font *police = NULL; // Le pointeur vers notre police
 

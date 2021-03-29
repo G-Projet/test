@@ -42,7 +42,7 @@ int main (int argc, char *argv[])
         SDL_WINDOW_SHOWN
     );
       
-             map_test = IMG_Load("image/paysage0.png");
+             map_test = IMG_Load("image/paysage_dem.png");
  
              //SDL_PixelFormat* SDL_AllocFormat(Uint32 pixel_format)
 
@@ -77,10 +77,28 @@ int main (int argc, char *argv[])
 		    case SDL_QUIT:
 		    quit = 1;
 		    break;
-		 
+
+				// gestion de la souris 
+
+			//case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
+				//event.motion.xrel || yrel (position relative)
+
+				printf(" %d | %d \n",event.motion.x,event.motion.y);
+				break;
+				
+			case SDL_MOUSEBUTTONDOWN: // gestion coordonnées de la souris 
+				//if(event.button.clicks>=2)
+				//	printf("Double clic \n");
+				if(event.button.button==SDL_BUTTON_RIGHT)//SDL_BUTTON_LEFT|MIDOLE
+					printf("Clic droit \n");
+				printf(" clic en %d | %d \n",event.button.x,event.button.y);
+				break;
+					
+
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym)
 				{
+ 
 					case SDLK_UP:
 						for(i = 1; i<4; i++)
 						{
