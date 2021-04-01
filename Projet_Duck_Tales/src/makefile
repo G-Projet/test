@@ -18,13 +18,29 @@ all: exe
 
 exe: sdl.o fonction.o
 	${CC} -o ${PROG} sdl.o fonction.o ${LDFLAGS} 
-
 	
-sdl.o: sdl.c fonction.h
+sdl.o: sdl.c init.h
 	${CC} -o sdl.o -c sdl.c ${LDFLAGS}
 
-fonction.o: fonction.c
+fonction.o: fonction.c page1.c
 	${CC} -o fonction.o -c fonction.c ${LDFLAGS}
+
+affichage1.o: affichage1.c
+	${CC} -o affichage1.o -c affichage1.c ${LDFLAGS}
+
+affichage2.o: affichage2.c init.h
+	${CC} -o affichage2.o -c affichage2.c ${LDFLAGS}
+
+
+
+page2.o: page2.c
+	${CC} -o page2.o -c page2.c ${LDFLAGS}
+
+page1.o: page1.c
+	${CC} -o page1.o -c page1.c ${LDFLAGS}
+
+
+
 
 clean:
 

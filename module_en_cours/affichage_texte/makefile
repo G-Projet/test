@@ -18,20 +18,21 @@ PROG2=affichage2
  
 all:affichage1 affichage2
  
-affichage1: affichage.o 
-	${CC} -o ${PROG1} affichage.o ${LDFLAGS} 
-       
-affichage.o: affichage.c initialisation.h
-	${CC} -o affichage.o -c affichage.c ${LDFLAGS}
+affichage1:affichage1.o  
+	${CC} -o ${PROG1} affichage1.o ${LDFLAGS} 
 
+affichage1.o: affichage1.c
+	${CC} -o affichage1.o -c affichage1.c ${LDFLAGS}
+
+###########
 
 
 affichage2: affichage2.o 
 	${CC} -o ${PROG2} affichage2.o ${LDFLAGS} 
-       
-affichage2.o: affichage2.c initialisation.h
+
+affichage2.o: affichage2.c
 	${CC} -o affichage2.o -c affichage2.c ${LDFLAGS}
- 
+
 clean:
 
 	rm -f ${PROG1} ${PROG2}

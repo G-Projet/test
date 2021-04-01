@@ -5,6 +5,9 @@
 * \date Mardi 12 mars 2021
 */
 
+Doc SDL:
+
+https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/18176-la-gestion-des-evenements
 
 https://alexandre-laurent.developpez.com/tutoriels/sdl-2/afficher-sprites-sdl-2/
 

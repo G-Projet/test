@@ -5,99 +5,73 @@
 * \date Mardi 01 mars 2021
 */
 
-#include "fonction.h"
+
+#include "init.h"
 
 int main(int argc, char** argv)
 {
+	int temps_Actuel= SDL_GetTicks();
+
 	bienvenus();
 	
-	if(SDL_Init(SDL_INIT_VIDEO)!=0) //Gestion des erreurs, initialisation sdl
-	{
-		liberation_ressources(NULL,NULL,NULL,NULL);
-		message_erreurs("initialisation SDL");
-	}
-
-   	window = SDL_CreateWindow(
-        		"Duck_Tales",                       // window title
-        		SDL_WINDOWPOS_CENTERED,           // initial x position
-        		SDL_WINDOWPOS_CENTERED,           // initial y position
-        		1500,                               // width, in pixels
-        		800,                               // height, in pixeldanss
-        		0                  // flags - see below
-    			);
-   /*
-    //Gestion de la surface de l'écran 			
-
-    SDL_DisplayMode DM;
-	SDL_GetCurrentDisplayMode(0, &DM);
-	
-	printf("width : %d, height : %d\n", DM.w, DM.h);
-		
-	window = SDL_CreateWindow("Duck_Tales",SDL_WINDOWPOS_UNDEFINED,
-												  SDL_WINDOWPOS_UNDEFINED,
-												  DM.w-=200,
-												  DM.h-=200,
-												  SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);		
-    */
-	if(window == NULL) // Gestion des erreurs
-	{
-		liberation_ressources(NULL,NULL,NULL,NULL);
-		message_erreurs("Ouverture Window");
-	}
-
-	// Création du renderer			
-
-	renderer = SDL_CreateRenderer(window, -1,   SDL_RENDERER_SOFTWARE );//SDL_RENDERER_ACCELERATED);
-	
-	// SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); 
-
- 
-
-	if(renderer == NULL)//gestion des erreurs
-	{
-		liberation_ressources(window,NULL,NULL,NULL);
-		message_erreurs("création renderer");
-	}
-
-	//affichage d'une image
-
-	image=IMG_Load("../image/Générique.jpg");// chargement de l'image
-	
-	if(image==NULL)
-	{
-		liberation_ressources(window,renderer,NULL, NULL);
-		message_erreurs("Chargement image");
-	}
-
-	texture = SDL_CreateTextureFromSurface(renderer,image);
-
-	if(texture==NULL)
-	{
-		liberation_ressources(window,renderer, image,NULL);
-		message_erreurs("Texture");
-	}
-
-	if(SDL_QueryTexture(texture,NULL,NULL,&dest_rect.w,&dest_rect.h)!=0)
-	{
-		liberation_ressources(window,renderer, image,texture);
-		message_erreurs("Texture application");
-	}
-
-	if(SDL_RenderCopy(renderer,texture,NULL,&dest_rect)!=0)
-	{
-		liberation_ressources(window,renderer, image,texture);
-		message_erreurs("Création rendu ");
-	}
-
-	SDL_RenderPresent(renderer);// affichage du rendu 
-
 	/******** gestion évenement *******/
 
-	evenement(SDL_TRUE); // program_launched = SDL_TRUE;
-	
+	continuer=VRAI;
+
+	while (continuer)
+	{
+		while(SDL_WaitEvent(&event))
+		{	
+			switch(event.type)
+			{
+			    case SDL_QUIT:
+			    
+			    	continuer = FAUX;
+			    	break;
+ 
+			    // gestion des touches du clavier
+
+				case SDL_KEYDOWN: //appuyer
+					switch(event.key.keysym.sym)
+					{
+						case SDLK_b:
+							SDL_DestroyRenderer(renderer);
+							affichagePage1();
+							continue; //break;
+
+ 						case SDLK_a:
+							//affichagePage2();
+							continue; //break;
+
+						default:
+							 break;
+					}
+
+				case SDL_KEYUP: // relacher
+					switch(event.key.keysym.sym)
+					{
+						case SDLK_a:
+
+							printf(" vous avez relacher la touche B \n");
+							//affichagePage2();
+							continuer=FAUX; //break;
+
+						case SDLK_b:
+							SDL_DestroyRenderer(renderer);
+							affichagePage1();
+							continuer=FAUX; //break;
+
+						default:
+							 break;
+					}
+			}
+		}
+
+	}
+
 	liberation_ressources(window,renderer,image,texture);
 
-	printf(" %d s écoulées \n",SDL_GetTicks()/1000);// le temps d'éxecution de la SDL
+	printf(" %d s écoulées \n",((SDL_GetTicks()-temps_Actuel)/1000));// le temps d'éxecution de la SDL
 
 	SDL_Quit(); // On quitte la SDL
 

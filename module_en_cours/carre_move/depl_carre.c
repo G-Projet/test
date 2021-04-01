@@ -31,7 +31,7 @@ int main (int argc, char** argv)
     
     renderer =  SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 
-    //Set render color to red ( background will be rendered in this color )
+    // Set render color to red( background will be rendered in this color )
     
     SDL_SetRenderDrawColor( renderer, 255,200,100,100);// couleur de fond de la fenêtre
 
