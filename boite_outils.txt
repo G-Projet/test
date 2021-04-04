@@ -18,6 +18,10 @@ Debugage :
 
 //  valgrind --leak-check=full ./exe
 
+make:
+
+https://www.paris.inria.fr/secret/Anne.Canteaut/COURS_C/chapitre7.html
+
 *************  gestion événements :
 
 // clavier : 
