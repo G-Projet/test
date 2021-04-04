@@ -1,8 +1,6 @@
 
 CIBLE = DuckTales
-
 CC=gcc
-
 FLAGS=-Wall -g 
  
 SDL_DIR=${HOME}/SDL2
@@ -37,12 +35,10 @@ $(BINDIR)/$(CIBLE): $(OBJECTS)
 	@$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 	@echo "Liens terminés!"
 
-	
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@$(CC) -c $< -I$(SRCDIR) -o $@
 	@echo "Compilation de "$<" terminée!"
 
-	
 .PHONY: clean
 clean:
 	-@rm -rf $(OBJDIR)
