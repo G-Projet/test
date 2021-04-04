@@ -1,6 +1,6 @@
 /**
 * \file main.c
-* \brief Contient touta fonction main
+* \brief Contient la fonction main
 * \date Mardi 01 mars 2021
 */
  
@@ -14,8 +14,8 @@ int main(int argc, char** argv)
 	bienvenus();
  
 	continuer = FAUX;
-	affichagePage1();
-	
+	//affichagePage1();
+	jeu1();
  	while (!continuer)
 	{
 		//SDL_Event event;
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 					{
 						case SDLK_a:
 							printf(" je suis la *********** A \n");
-							
+							affichagePage1();
 							break; 
 
 						case SDLK_b:
