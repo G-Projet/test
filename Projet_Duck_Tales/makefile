@@ -1,6 +1,8 @@
 
-CIBLE = DuckTales
+CIBLE = duckTales
+
 CC=gcc
+
 FLAGS=-Wall -g 
  
 SDL_DIR=${HOME}/SDL2
@@ -8,7 +10,6 @@ SDLLIB_DIR=${SDL_DIR}/lib
 SDLINC_DIR=${SDL_DIR}/include 
 LIBS=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image
 INCS=-I${SDLINC_DIR} 
-
 LDFLAGS=${LIBS} ${INCS} ${FLAGS}
 
 SRCDIR = src
@@ -28,13 +29,13 @@ $(BINDIR):
 
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 INCLUDES = $(wildcard $(SRCDIR)/*.h)
-
 OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 $(BINDIR)/$(CIBLE): $(OBJECTS)
 	@$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 	@echo "Liens terminés!"
 
+	
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@$(CC) -c $< -I$(SRCDIR) -o $@
 	@echo "Compilation de "$<" terminée!"
@@ -57,7 +58,8 @@ docs:
 	@mkdir -p doc
 	@doxygen doxyfile
 	@open doc/html/index.html
-     
+
+#make   
 #make doxygen
 #make docs
 

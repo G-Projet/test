@@ -1,6 +1,6 @@
 /**
 * \file main.c
-* \brief Contient la fonction main
+* \brief Contient touta fonction main
 * \date Mardi 01 mars 2021
 */
  
@@ -14,8 +14,22 @@ int main(int argc, char** argv)
 	bienvenus();
  
 	continuer = FAUX;
-	//affichagePage1();
-	jeu1();
+	
+	window=NULL;
+	
+  	window =  SDL_CreateWindow(
+            "Duck_Tales",            // window title
+            SDL_WINDOWPOS_CENTERED,  // initial x position
+            SDL_WINDOWPOS_CENTERED,  // initial y position
+            longueur_ecran,          // width, in pixels
+            largeur_ecran,           // height, in pixeldanss
+            0                        // flags - see below
+            );
+    if(window == NULL)  {  message_erreurs("Ouverture Window"); }
+               
+	//affichagePage1(window);
+	jeu1(window);
+	
  	while (!continuer)
 	{
 		//SDL_Event event;
@@ -44,12 +58,12 @@ int main(int argc, char** argv)
 					{
 						case SDLK_a:
 							printf(" je suis la *********** A \n");
-							affichagePage1();
+							
 							break; 
 
 						case SDLK_b:
 							printf(" je suis la *********** B\n");
-							jeu1();
+							jeu1(window);
 							break;
 
 						default:
@@ -67,9 +81,4 @@ int main(int argc, char** argv)
 
 	return EXIT_SUCCESS;
 }
-
-
-
-
-
 

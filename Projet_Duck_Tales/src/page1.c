@@ -2,20 +2,16 @@
  
 #include "fonction.h"
 
-int affichagePage1()
+int affichagePage1(SDL_Window *window)
 {
-    SDL_Window *window = NULL;
-    SDL_Surface *pSurf=NULL;
-	SDL_Surface * image =NULL;
-	
-    SDL_Surface *texte1,*texte2,*texte3, *texte4,*texte5,*texte6; //*fond = NULL;
-        texte1=texte2=texte3=texte4=texte5=texte6=NULL;
+	pSurf=NULL;
+	image =NULL;
 
-    SDL_Rect position;
+	texte1 = texte2 = texte3 = texte4 = texte5 = texte6 = NULL;
 
+	SDL_Rect position;
  
-
-    TTF_Font *police1 = NULL, *police2=NULL ;
+    police1 = police2=NULL ;
 
     SDL_Color couleurJaune = {250,234,115};
     //SDL_Color couleurNoir = { 0,0,0 };
@@ -29,32 +25,22 @@ int affichagePage1()
     //    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     //    SDL_WM_SetCaption("Gestion du texte avec SDL_ttf", NULL);
 
-    window =  SDL_CreateWindow(
-                "Duck_Tales",                       // window title
-                SDL_WINDOWPOS_CENTERED,           // initial x position
-                SDL_WINDOWPOS_CENTERED,           // initial y position
-                longueur_ecran,                               // width, in pixels
-                largeur_ecran,                               // height, in pixeldanss
-                0                  // flags - see below
-                );
-    
-    if(window == NULL)  {  message_erreurs("Ouverture Window"); }
-	
+ 
     pSurf = SDL_GetWindowSurface(window);
     
     if(pSurf==NULL)
-    {	liberation_ressources(NULL,NULL,pSurf, NULL);	message_erreurs("Chargement image"); }
+    {	liberation_ressources(NULL,NULL,pSurf, NULL);	message_erreurs("Chargement window"); }
    
     
-   	image = IMG_Load("../image/paysage.png");
+   	image = IMG_Load("image/paysage.png");
     
 	if(image==NULL)
 	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image"); }
 	
     /* Chargement de la police */
 
-    police1 = TTF_OpenFont("../image/JMH Typewriter.ttf", 40);// police et taille de la police
-    police2 = TTF_OpenFont("../image/JMH Typewriter.ttf", 30);
+    police1 = TTF_OpenFont("image/JMH Typewriter.ttf", 40);// police et taille de la police
+    police2 = TTF_OpenFont("image/JMH Typewriter.ttf", 30);
  
 	
     /* Écriture du texte dans la SDL_Surface texte en mode Blended (optimal) */
