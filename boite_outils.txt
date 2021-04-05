@@ -1,0 +1,137 @@
+
+/**
+* \file boite_outils.text
+* \brief Contient quelques outils pour l'aide à l'utilisation de la SDL
+* \date Mardi 12 mars 2021
+*/
+
+Doc SDL:
+
+https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/18176-la-gestion-des-evenements
+
+https://alexandre-laurent.developpez.com/tutoriels/sdl-2/afficher-sprites-sdl-2/
+
+
+site documentation : SDL :  https://wiki.libsdl.org/
+
+Debugage : 
+
+//  valgrind --leak-check=full ./exe
+
+make:
+
+https://www.paris.inria.fr/secret/Anne.Canteaut/COURS_C/chapitre7.html
+
+*************  gestion événements :
+
+// clavier : 
+
+https://wiki.libsdl.org/SDL_Keycode
+
+//   http://sdz.tdct.org/sdz/simplifier-les-events-avec-sdl.html#UnexempleenC
+https://wiki.libsdl.org/SDL_LowerBlit
+https://devopssec.fr/article/gestion-des-differents-evenements-sdl-2
+https://zestedesavoir.com/tutoriels/1014/utiliser-la-sdl-en-langage-c/dessiner-dans-la-fenetre/
+
+
+extern void evenement (SDL_bool program_launched )
+{
+	//program_launched = SDL_TRUE;
+
+	while(program_launched)
+	{
+		SDL_Event event;
+
+		while(SDL_PollEvent(&event))
+		{
+			switch(event.type)
+			{    
+				/*
+				// gestion de la souris 
+				
+				//case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
+					//event.motion.xrel || yrel (position relative)
+					printf(" %d | %d \n",event.motion.x,event.motion.y);
+					break;
+					
+				case SDL_MOUSEBUTTONDOWN: // gestion coordonnées de la souris 
+					//if(event.button.clicks>=2)
+					//	printf("Double clic \n");
+					if(event.button.button==SDL_BUTTON_RIGHT)//SDL_BUTTON_LEFT|MIDOLE
+						printf("Clic droit \n");
+					printf(" clic en %d | %d \n",event.button.x,event.button.y);
+					break;
+
+				case SDL_KEYDOWN: // gestion des touches du clavier
+					switch(event.key.keysym.sym)
+					{
+						case SDLK_b:
+							printf(" vous avez appuyer sur B \n");
+							continue; // break;
+						default:
+							break;
+					}
+				case SDL_KEYUP: // gestion des touches du clavier
+					switch(event.key.keysym.sym)
+					{
+						case SDLK_b:
+							printf(" vous avez relacher la touche B \n");
+							continue; //break;
+						default:
+							 break;
+					}
+				*/
+				//gestion de la fenetre 
+				// SHOWN((affichage)|MOVED(deplacement)|RESIZED(redimentionnemnt)|MINIMEZED|RESTORED|CLOSE
+				case SDL_WINDOWEVENT:
+					// event.window.data1|data2 (redimentionnement de la fenêtre)
+					if(event.window.event==SDL_WINDOWEVENT_LEAVE)
+						printf(" La souris sort de la fenetre \n");
+					if(event.window.event==SDL_WINDOWEVENT_ENTER)
+						printf(" La souris entre de la fenetre \n");
+					break;
+
+				case SDL_QUIT:
+					program_launched = SDL_FALSE;
+					break;
+
+				default:
+					break;
+			}
+		}
+	}
+}
+
+********************
+utilisation type booléen : 
+
+	typedef enum bool_t{FALSE,TRUE=}bool;
+	
+	bool error = 0;
+	
+extern void sdl_init(bool* const error, int (*sdlInit)(int*));
+
+extern void arret_programme(SDL_Surface* image,SDL_Renderer* renderer,SDL_Window * window);	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
