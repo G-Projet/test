@@ -1,6 +1,6 @@
 /**
 * \file main.c
-* \brief Contient touta fonction main
+* \brief Contient la fonction main
 * \date Mardi 01 mars 2021
 */
  
