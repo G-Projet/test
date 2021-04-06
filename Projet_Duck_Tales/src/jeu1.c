@@ -2,7 +2,7 @@
  
 #include "fonction.h"
 
-int jeu1(SDL_Window * window)
+int jeu1(SDL_Window * window,SDL_Renderer *renderer)
 {
 	SDL_Rect dest_rect     = {0,200,1500,600};
 
@@ -12,16 +12,19 @@ int jeu1(SDL_Window * window)
     SDL_Surface *droite[4];
     SDL_Surface* texte1=NULL;
     
-    int i = 1;
-    int l = 0 ;
-    int j = 1;
-    int k = 1;
-
+    int l=0; //compteur de position chemin
+    int g,d,h,b; // compteur defilement image direction
+   		g = d = h = b = 1;
+	
     int temp_actuel = 0;
     int temp_precedent = 0;
     
     point.x = departX;  //0
     point.y = departY; //535;
+    
+    SDL_Rect pSerp;
+    pSerp.x=  100;
+    pSerp.y=  580;
 
     int chemin_aller[TAILLE];
 
@@ -53,9 +56,11 @@ int jeu1(SDL_Window * window)
 	if(bas[1]==NULL)
 	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [ bas[1] ]"); }
 		
-	bas[2] = IMG_Load("image/duck.png");
+	bas[2] = IMG_Load("image/S2.png");
+	if(bas[2]==NULL)
+	{	liberation_ressources(window,NULL,NULL, NULL);message_erreurs("Chargement image [bas[2]]"); }
+	
 	bas[3] = IMG_Load("image/duck.png");
-
 
 	haut[1] = IMG_Load("image/duck.png");
 	if(haut[1]==NULL)
@@ -79,24 +84,24 @@ int jeu1(SDL_Window * window)
   
   	win_surf=NULL;
 	win_surf = SDL_GetWindowSurface(window);
-
- 
-	SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect ); // arrière plan = copie la photo sur l'ecran
-	SDL_BlitSurface(texte1, NULL, win_surf, &positionTemps);
-	SDL_BlitSurface (bas[1], NULL, win_surf, &point);// position de duck
  	
  	continuer = FAUX;//0
  	int saut=0;
+ 	int nb=0;
  	
 	while (!continuer)
 	{
 		temps+= (SDL_GetTicks()/1000) ;
-		
-		sprintf(c1, "%d ." , temps);
-		
+		sprintf(c1, "%d" , temps);
 		texte1 = TTF_RenderText_Blended(police1, c1, couleurJaune);
 		
+		SDL_FillRect(win_surf, NULL, SDL_MapRGB(win_surf->format,0, 0, 0));//font noir
+		
 		SDL_BlitSurface(texte1, NULL, win_surf, &positionTemps);
+		SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect );
+		
+		SDL_BlitSurface (bas[1], NULL, win_surf, &point);
+		SDL_BlitSurface(bas[2], NULL, win_surf, &pSerp);
 		
 		//SDL_PollEvent(&event);
 		SDL_WaitEvent(&event);
@@ -104,50 +109,52 @@ int jeu1(SDL_Window * window)
 		switch(event.type)
 		{
 		    case SDL_QUIT:
-		    continuer = VRAI;
-		    break;
-
-				// gestion de la souris 
-
-				printf(" %d | %d \n",event.motion.x,event.motion.y);
+				continuer = VRAI;
 				break;
-				
+
+				/*
 			case SDL_MOUSEBUTTONDOWN: // gestion coordonnées de la souris 
  
 				if(event.button.button==SDL_BUTTON_RIGHT)//SDL_BUTTON_LEFT|MIDOLE
 					printf("Clic droit \n");
+					printf(" %d | %d \n",event.motion.x,event.motion.y);
 				printf(" clic en %d | %d \n",event.button.x,event.button.y);
-				break;
+				break;*/
  
 			case SDL_KEYDOWN:// entrée clavier
 
 				switch (event.key.keysym.sym)
 				{
-					case SDLK_UP:// sauter *******************************
+					case SDLK_UP:					// sauter *******************************
 
 						temp_actuel = SDL_GetTicks();
 
-						if (temp_actuel - temp_precedent > 35)// /1000(millième de secondes)
+						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						SDL_BlitSurface(texte1, NULL, win_surf, &positionTemps);
+ 	
+						SDL_BlitSurface(haut[h], NULL, win_surf, &point);
+						if(h<=2)
+							h++;
+						else
+							h=1;
+
+						printf("saut : s = %d chemin_aller_H (%i , %i ) \n",h,chemin_aller[l],point.y);
+
+						//if(saut==0 ) // pour verouiller le nombre de saut
+						//{
+							point.y -=160;
+							//saut++;
+
+							nb++;
+						//}
+
+						if(nb==2)
 						{
-							SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
-
-							SDL_BlitSurface(haut[j], NULL, win_surf, &point);
-							j++;
-							if(j<4)
-							j = 1;
-							temp_precedent = temp_actuel;
-
+							point.y +=320;
+							nb=0;
 						}
 
-						printf(" chemin_aller_H (%i , %i ) \n",chemin_aller[l],point.y);
-
-						if(saut==0) // pour verouiller le nombre de saut
-						{
-							point.y -=20;
-							saut++;
-						}
-						break;
-								
+						break;			
 /*
 					case SDLK_DOWN:// mouvement  en bas
 
@@ -158,10 +165,10 @@ int jeu1(SDL_Window * window)
 							if (temp_actuel - temp_precedent > 35)
 							{
 								SDL_BlitSurface (arrirePlan1, NULL,win_surf, &dest_rect); // arrière plan
-								SDL_BlitSurface(bas[i], NULL, win_surf, &point);
+								SDL_BlitSurface(bas[b], NULL, win_surf, &point);
 								i++;
-								if(i<4)
-								i = 1;
+								if(b<4)
+								b = 1;
 								temp_precedent = temp_actuel;
 							}
 							point.y+=5;
@@ -176,41 +183,37 @@ int jeu1(SDL_Window * window)
 							point.y +=20; saut=0;
 						}	
 						if(point.x==departX)
-						
+
 							point.x=departX;
-							
+
 						else
 						{
 							//on recuprère la position de X
 							for( l=TAILLE; point.x != chemin_aller[l]; l-- );  
-							
-							printf(" chemin_aller_H (%i , %i ) \n",chemin_aller[l],point.y);
+
+							printf("gauche : g = %d chemin_aller_H (%i , %i ) \n",g,chemin_aller[l],point.y);
 
 							point.x = chemin_aller[--l];
 
 							if(point.x == 640)
 
-								point.y-= 35;
+							point.y-= 35;
 
 							if(point.x == 1300)
 
-								point.y+= 35;
+							point.y+= 35;
 						}
-							
-						temp_actuel = SDL_GetTicks();
 
-						if (temp_actuel - temp_precedent > 65)
-						{
-							k++;
-							
-							if(k<4)
-								k = 1;
-								
-							SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						SDL_BlitSurface(texte1, NULL, win_surf, &positionTemps);
+ 
+						SDL_BlitSurface(gauche[g], NULL, win_surf, &point);
+						
+						if(g<=2)
+							g++;
+						else
+							g=1;
 
-							SDL_BlitSurface(gauche[k], NULL, win_surf, &point);
-							temp_precedent = temp_actuel;
-						}
 						break;
 					
 					case SDLK_RIGHT: // droite 
@@ -225,7 +228,7 @@ int jeu1(SDL_Window * window)
 							
 						for( l=0; point.x != chemin_aller[l]; l++ );  //on recuprère la position de X
 						
-						printf("l= %i, chemin_aller_H (%i , %i ) \n",l,chemin_aller[l],point.y);
+						printf("droite : d= %i l= %i, chemin_aller_H (%i , %i ) \n",d,l,chemin_aller[l],point.y);
 
 						point.x = chemin_aller[++l];
 
@@ -237,19 +240,18 @@ int jeu1(SDL_Window * window)
 
 							point.y-= 35;
 	 
-						i=1;
-						temp_actuel = SDL_GetTicks();
+						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						SDL_BlitSurface(texte1, NULL, win_surf, &positionTemps);
+ 
+						SDL_BlitSurface(droite[d], NULL, win_surf, &point);
+						
+						if(d<=2) //gestion du difilement d'images
+							d ++;
+						else
+							d=1;
+						
+						SDL_BlitSurface(bas[2], NULL, win_surf, &pSerp);// à revoir
 
-						if (temp_actuel - temp_precedent > 35)
-						{
-							SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
-
-							SDL_BlitSurface(droite[i++], NULL, win_surf, &point);
-
-							if(i<4)
-							i = 1;
-							temp_precedent = temp_actuel;
-						}
 						break;	
 				}	
 		}
@@ -257,13 +259,20 @@ int jeu1(SDL_Window * window)
 		SDL_UpdateWindowSurface(window);//actualisation de la page.
     }
 
+	// liberer uniquement les surfaces ouvertes dans la fonction 
+	
  	liberation_ressourcesSurface(droite[1],droite[2],droite[3],texte1,NULL,NULL);
 	liberation_ressourcesSurface(arrierePlan1,arrierePlan2,arrierePlan3,bas[1],bas[2],bas[3]);
 	liberation_ressourcesSurface(haut[1],haut[2],haut[3],gauche[1],gauche[2],gauche[3]);
 
-    SDL_DestroyWindow(window);
- 
-    SDL_Quit();
+    
     return (0);
 }
+
+
+
+
+
+
+
 

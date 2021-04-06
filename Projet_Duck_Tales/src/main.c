@@ -1,6 +1,6 @@
 /**
 * \file main.c
-* \brief Contient la fonction main
+* \brief Contient touta fonction main
 * \date Mardi 01 mars 2021
 */
  
@@ -9,12 +9,20 @@
 
 int main(int argc, char** argv)
 {
+
+	SDL_Init(SDL_INIT_VIDEO);
+	
 	int temps_Actuel = SDL_GetTicks() ; 
  
 	bienvenus();
- 
-	continuer = FAUX;
-	
+ 	
+ 	
+ 	if(SDL_VideoInit(NULL) < 0) // Initialisation de la SDL
+	{
+		printf("Erreur d'initialisation de la SDL : %s",SDL_GetError());
+		return EXIT_FAILURE;
+	}
+
 	window=NULL;
 	
   	window =  SDL_CreateWindow(
@@ -26,19 +34,32 @@ int main(int argc, char** argv)
             0                        // flags - see below
             );
     if(window == NULL)  {  message_erreurs("Ouverture Window"); }
-               
-	//affichagePage1(window);
-	jeu1(window);
-	
+
+    renderer=NULL;
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    if(renderer == NULL)//gestion des erreurs
+	{
+		printf("Erreur lors de la creation d'un renderer : %s",SDL_GetError());
+		return EXIT_FAILURE;
+	}
+
+	//affichagePage1(window,renderer);
+
+	jeu1(window,renderer);
+
+	continuer = FAUX;
+
  	while (!continuer)
 	{
 		//SDL_Event event;
 		
 		//printf(" je suis la *********** \n");
 		
-		//while(SDL_PollEvent(&event))
-		//{
-		SDL_WaitEvent(&event);
+		while(SDL_PollEvent(&event))
+		{
+			SDL_WaitEvent(&event);
 		
 			switch(event.type)
 			{    
@@ -63,7 +84,7 @@ int main(int argc, char** argv)
 
 						case SDLK_b:
 							printf(" je suis la *********** B\n");
-							jeu1(window);
+							jeu1(window,renderer);
 							break;
 
 						default:
@@ -72,11 +93,13 @@ int main(int argc, char** argv)
 				default:
 					break;
 			}
-		//}
+		}
 	}
  
 	printf(" %d s écoulées \n",((SDL_GetTicks()-temps_Actuel)/1000));// le temps d'éxecution de la SDL
 
+	liberation_ressources(window,renderer,NULL,NULL);
+	 
 	SDL_Quit(); // On quitte la SDL
 
 	return EXIT_SUCCESS;

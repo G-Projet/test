@@ -10,7 +10,6 @@ SDLLIB_DIR=${SDL_DIR}/lib
 SDLINC_DIR=${SDL_DIR}/include 
 LIBS=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image
 INCS=-I${SDLINC_DIR} 
-
 LDFLAGS=${LIBS} ${INCS} ${FLAGS}
 
 SRCDIR = src
@@ -59,7 +58,8 @@ docs:
 	@mkdir -p doc
 	@doxygen doxyfile
 	@open doc/html/index.html
-     
+
+#make   
 #make doxygen
 #make docs
 
