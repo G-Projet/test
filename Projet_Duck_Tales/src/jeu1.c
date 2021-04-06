@@ -10,6 +10,7 @@ int jeu1(SDL_Window * window,SDL_Renderer *renderer)
     SDL_Surface *haut[4];
     SDL_Surface *gauche[4];
     SDL_Surface *droite[4];
+    
     SDL_Surface* texte1=NULL;
     
     int l=0; //compteur de position chemin
@@ -261,12 +262,11 @@ int jeu1(SDL_Window * window,SDL_Renderer *renderer)
 
 	// liberer uniquement les surfaces ouvertes dans la fonction 
 	
- 	liberation_ressourcesSurface(droite[1],droite[2],droite[3],texte1,NULL,NULL);
 	liberation_ressourcesSurface(arrierePlan1,arrierePlan2,arrierePlan3,bas[1],bas[2],bas[3]);
 	liberation_ressourcesSurface(haut[1],haut[2],haut[3],gauche[1],gauche[2],gauche[3]);
-
-    
-    return (0);
+ 	liberation_ressourcesSurface(droite[1],droite[2],droite[3],texte1,NULL,NULL);
+ 
+    return EXIT_SUCCESS;
 }
 
 
