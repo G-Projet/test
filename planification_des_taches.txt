@@ -1,0 +1,71 @@
+
+
+Le :  lun. 22 mars 2021 10:26:47 
+
+
+
+ce qui a été fait : 
+	1- déplacement rectangle ( obstacle)
+	2- déplacement du personnage 
+	3- faire de la texture( ecrire sur l'écran)
+	4 -
+	5-
+	
+ce qui rest à faire : 
+
+	- pour travailler sur le Makefile il faut mettre à jour le programme principal.
+	
+	- avoir les images qui correspondent aux différentes posture du personnage
+	
+	- il faut travailler la dimention de l'image, personnage
+	
+	- definir l'iténiraire (differents paysages(extérieur, interieur) )
+	
+	- definir les algorithmes de deplacement(voir l'écran comme une matrice, l'iténiraire doit correspondre à un chemin bien défini sur la matrice)
+	
+	- definir un algorithme pour jouer contre l'ordinateur(minMax)
+	
+	***********************************
+	
+	conception du jeu :   lun. 29 mars 2021 08:53:14 
+	
+		1 - un générique ( - un mot de bienvenue, 
+						   - une photo du jeu, ...)
+		
+		2 - une page de menu: 
+				- jouer seul
+				- jouer contre l'ordinateur 
+				
+		3 - une page de jeu (chemin 1) 
+				- itinéraire 
+				- personnage en déplacement 
+				
+		4 - une page de jeu (chemin 2 )
+				- déplacement du canard + obstacles 
+				- victoire / échec 
+				
+		nb: - affichage du temps ecoulé
+			- affichage du score 
+			
+		5 - page de cloture 
+				- fermer le jeu 
+				- recommencer.
+				
+				
+				
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
