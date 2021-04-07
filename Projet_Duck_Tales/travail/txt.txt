@@ -1,0 +1,31 @@
+ 
+
+	
+
+/*
+		Menu
+		Joueur seul
+		Ordinateur seul
+		Crédit disponible
+		Commencer la partie
+		Finir la partie
+		Quitter
+		
+
+		switch(event.type)
+		{
+		//exemple pour que largeurBouton (qui est la largeur de ton bouton) = 50 (par exemple  ) 
+		//et longeurBouton qui est la longueur.
+		case SDL_MOUSEBUTTONUP: // je te met juste ce cas
+		if (event.button.button == SDL_BUTTON_LEFT)
+		if(event.button.x > positionBouton1.x && event.button.x < positionBouton1.x + largeurBouton && event.button.y > 		positionBouton1.y && event.button.y < positionBouton1.y + longeurBouton) 
+		// Test des coordonnées de la souris pour savoir si ellessont au meme emplacement que le bouton 1
+		{
+		//tu lance la fonction du nouveau jeu.
+		}
+
+		break;
+		}
+*/
+
+

@@ -1,7 +1,17 @@
- 
+
+/**
+*\file affichage.c
+*\brief Fichier contenant les fonctions utilisées dans le programme
+*\author Belkadi Smail
+*\version 2.0
+*\date 07 avril 2021
+**/
+
 #include "fonction.h"
- 
-void bienvenus()
+
+/** fonction qui affiche un mot de bienvenue **/
+extern
+void bienvenue()
 {
 	SDL_version nb;
 	SDL_VERSION(&nb);
@@ -13,7 +23,11 @@ void bienvenus()
 	printf("\t********************************************************\n");	
 	sleep(1);
 }
- 
+
+/**
+*\brief La fonction qui renvoi un message d'erreurs
+**/
+
 extern
 char message_erreurs(const char* message )
 {
@@ -46,14 +60,27 @@ void liberation_ressourcesSurface(SDL_Surface* s1,SDL_Surface* s2,SDL_Surface* s
 	if(s5!=NULL)SDL_FreeSurface(s5);
 	if(s6!=NULL)SDL_FreeSurface(s6);	 
 }
- 
+
+extern
+void liberation_ressourcesTexture(SDL_Texture  *t1,SDL_Texture *t2,SDL_Texture *t3,SDL_Texture *t4,SDL_Texture *t5, SDL_Texture *t6)
+{
+	if(t1!=NULL) SDL_DestroyTexture(t1);
+	if(t2!=NULL)SDL_DestroyTexture(t2);
+	if(t3!=NULL)SDL_DestroyTexture(t3);
+	if(t4!=NULL)SDL_DestroyTexture(t4);
+	if(t5!=NULL)SDL_DestroyTexture(t5);
+	if(t6!=NULL)SDL_DestroyTexture(t6);	 
+}
+
+
 extern
 void liberation_ressourcesTTF( TTF_Font *p1, TTF_Font *p2 )
 {
 	if(p1!=NULL)TTF_CloseFont(p1);
 	if(p2!=NULL)TTF_CloseFont(p2);
 }
- 
+
+extern
 void chargement_cheminA_1(int  *chemin_aller , int t)
 {
 		int i=0, l=0;
