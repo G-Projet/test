@@ -5,13 +5,12 @@
 extern
 int menu(SDL_Window * window,SDL_Renderer *renderer)
 {
+	SDL_RenderClear( renderer );
+
 	SDL_Surface *image = NULL;
 	
-	SDL_Texture *texture[nbTexture];
+ 	for( i=0;i<tailleTexture;i++)
 	
-	int i;
-	
-	for( i=0;i<nbTexture;i++)
 		texture[i]=NULL;
 	
 	//texture[0] <=> texture_fond = NULL 
@@ -25,7 +24,9 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
  
 	txtDestRect.w=0;
 	txtDestRect.h=0;
-
+	
+	TTF_Init();
+	
 	TTF_Font *police = NULL;
 	SDL_Surface *texte=NULL;
 	
@@ -43,7 +44,7 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
  
 	// texte : ************************************************************
 	
-	TTF_Init();
+	
 	
 	police = TTF_OpenFont("image/JMH Typewriter.ttf", 30);
 	
@@ -100,7 +101,7 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
 	
-	texte = TTF_RenderText_Solid(police, "  Credit disponible ", couleurBlanche);	    
+	texte = TTF_RenderText_Solid(police, "  Ordinateur contre Joueur ", couleurBlanche);	    
     texture[5]=SDL_CreateTextureFromSurface(renderer, texte);
     txtDestRect.y=350;
     SDL_QueryTexture(texture[5], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
@@ -112,7 +113,7 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
 	
-	texte = TTF_RenderText_Solid(police, "  Reprendre la partie", couleurBlanche);	    
+	texte = TTF_RenderText_Solid(police, "  Reprendre la partie ", couleurBlanche);	    
     texture[6]=SDL_CreateTextureFromSurface(renderer, texte);
     txtDestRect.y=400;
     SDL_QueryTexture(texture[6], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
@@ -124,7 +125,7 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
 	
-	texte = TTF_RenderText_Solid(police, "  Finir la partie", couleurBlanche);	    
+	texte = TTF_RenderText_Solid(police, "  Historique de jeu ", couleurBlanche);	    
     texture[7]=SDL_CreateTextureFromSurface(renderer, texte);
     txtDestRect.y=450;
     SDL_QueryTexture(texture[7], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
@@ -136,7 +137,7 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
 	
-	texte = TTF_RenderText_Solid(police, "  Quitter", couleurBlanche);	    
+	texte = TTF_RenderText_Solid(police, "  Quitter ", couleurBlanche);	    
     texture[8]=SDL_CreateTextureFromSurface(renderer, texte);
     txtDestRect.y=500;
     SDL_QueryTexture(texture[8], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
@@ -147,69 +148,86 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 	
 	SDL_RenderClear( renderer );
 	
-	
 	continuer=FAUX;
 	
 	while (!continuer)
 	{
-		while(SDL_PollEvent(&event))
-		{
+		//while(SDL_PollEvent(&event))
+		//{
 			SDL_WaitEvent(&event);
 
 			switch(event.type)
 			{    
 				case SDL_QUIT:
 					
-					continuer = 1;//SDL_TRUE;
+					continuer =VRAI;//SDL_TRUE;
 					break;
 					
-				case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
+				case SDL_MOUSEMOTION: /** gestion coordonnées de la souris **/
 					//event.motion.xrel || yrel (position relative)
 					printf(" %d | %d \n",event.motion.x,event.motion.y);
 					break;
 					
 					//5 = largeur bouton = longueur bouton
 					
-				case SDL_MOUSEBUTTONUP: // je te met juste ce cas
-						if (event.button.button == SDL_BUTTON_LEFT)
+				case SDL_MOUSEBUTTONUP: /** gestion menu **/
+				
+					if (event.button.button == SDL_BUTTON_LEFT)
+	 				{
+						if(event.button.x > 415 && event.button.x < 
+							450 && event.button.y > 250 && event.button.y < 290) /** joueur **/ 
 						{
-							//printf(" j'appuie sur la gauche de la souris *******  1\n");
-		 
-							if(event.button.x > 418 && event.button.x < 
-								450 && event.button.y > 260 && event.button.y < 280) // joueur 
-								
-			// Test des coordonnées de la souris pour savoir si elles sont au meme emplacement que le bouton 1
-							{
-								printf(" j'appuie sur la gauche de la souris *******  2\n");
-								jeu1(window,renderer);
-								 
-							} 
-							
-							if(event.button.x > 418 && event.button.x < 
-								450 && event.button.y > 320 && event.button.y < 335) // Ordinateur 
-								
-			// Test des coordonnées de la souris pour savoir si elles sont au meme emplacement que le bouton 1
-							{
-								printf(" j'appuie sur la gauche de la souris *******  2\n");
-								affichagePage1(window,renderer); // fonction affichage page
-							} 	
+							jeu1(window,renderer);	 
+						} 
+						
+						if(event.button.x > 415 && event.button.x < 
+							450 && event.button.y > 300 && event.button.y < 340) /** Ordinateur **/ 
+						{
+							printf("je suis dans page de jeu Ordinateur .........\n");
+							affichagePage1(window,renderer);
+						} 	
+						if(event.button.x > 415 && event.button.x < 
+							450 && event.button.y > 350 && event.button.y < 380) /** Ordinateur contre joueur **/ 
+						{
+							printf("je suis dans page de jeu Ordinateur contre joueur.........\n");
+							affichagePage1(window,renderer);
+						} 
+						if(event.button.x > 415 && event.button.x < 
+							450 && event.button.y > 400 && event.button.y < 435) /** Historique de jeu **/ 
+						{
+							printf("je suis dans page reprendre la partie.........\n");
+							affichagePage1(window,renderer); 
+						} 
+						if(event.button.x > 415 && event.button.x < 
+							450 && event.button.y > 445 && event.button.y < 480) /** Reprendre la partie **/ 
+						{
+							printf("je suis dans page historique de jeu.........\n");
+							affichagePage1(window,renderer); 
 						}
-						break;
+						if(event.button.x > 415 && event.button.x < 
+							450 && event.button.y > 485 && event.button.y < 525) /** quitter **/ 
+						{
+							printf("je suis dans page quitter.........\n");
+							//affichagePage1(window,renderer); 
+							continuer=VRAI;
+						}
+					}	
+					break;
  	
 				default:
 					break;
 			}
-		}
+		//}
 	}
 
 	SDL_FreeSurface(image);	
 	
 	liberation_ressourcesTTF(police,NULL);
 	
-	for( i=0;i<nbTexture;i++)
-	
-		SDL_DestroyTexture(texture[i]) ;
-	
+	liberation_ressourcesTexture(texture);/** libérer des textures **/
+ 	
+ 	TTF_Quit();
+ 	
     return EXIT_SUCCESS;
 }
 

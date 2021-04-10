@@ -36,13 +36,12 @@
 
 /** la taille du tableau comptenant les coordonnées du chemin jeu1 **/
 
-#define TAILLE 161 
+#define TAILLE 161  
  
-#define tailleS 7 
+ 
 
 /** variable utilisés principalement par la fonction pageMenu.c **/
-
-#define nbTexture 9
+ 
 
 
 /** déclaration du Fichier main.c **/
@@ -58,36 +57,40 @@ SDL_Renderer *renderer;
 #define departX 0
 #define departY 535
 
+
 TTF_Font *police1 ;
 
 SDL_Surface *win_surf ;
 
 SDL_Rect point, positionTemps ;
 
-SDL_Surface *arrierePlan1,*arrierePlan2,*arrierePlan3;
+SDL_Surface *arrierePlan1,*arrierePlan2,*arrierePlan3, *arrierePlanQ;
 
 
 //   page1
 
-SDL_Surface *pSurf;
+#define tailleTexture 9
+#define tailleSurface 8
+ 
+SDL_Surface * image,*image2;
 
-SDL_Surface * image;
+SDL_Surface *Stexte[tailleSurface];
 
-SDL_Surface *texte1,*texte2,*texte3, *texte4,*texte5,*texte6; //*fond = NULL;
-
-TTF_Font *police1 , *police2 ; 
+TTF_Font *police2 ; 
 
 SDL_Rect txtDestRect,imgDestRect;
 
+SDL_Texture *texture[tailleTexture];
 	
 /** Definition du type booleen **/
 
 typedef enum booleen_s { FAUX , VRAI } booleen_t ;
 
-extern booleen_t  err_t ;
+//extern booleen_t  err_t ;
 
-booleen_t  continuer;
+booleen_t  continuer,temp;
 
+int i; 
  
 #endif /* _COMMUN_H_*/
 

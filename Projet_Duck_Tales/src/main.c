@@ -41,13 +41,13 @@ int main(int argc, char** argv)
     if(renderer == NULL)/** gestion des erreurs **/
 	{ printf("Erreur lors de la creation d'un renderer : %s",SDL_GetError());return EXIT_FAILURE; }
 
-	//affichagePage1(window,renderer);
+	affichagePage1(window,renderer);
 
 	//jeu1(window,renderer);
 
 	//jeu2(window,renderer);
 	
-	menu(window,renderer);
+	//menu(window,renderer);
 	
 	continuer = FAUX;
 
@@ -55,49 +55,53 @@ int main(int argc, char** argv)
 	{
 		//SDL_Event event;
 		
-		//printf(" je suis la *********** \n");
+		printf(" continuer entrée (main)  = %i \n",continuer);
 		
-		while(SDL_PollEvent(&event))
-		{
+		//while(SDL_PollEvent(&event))
+		//{
 			SDL_WaitEvent(&event);
 		
 			switch(event.type)
 			{    
 				case SDL_QUIT:
+				
+					printf(" arrêt inopiné : main...........\n");
 					
-					continuer = VRAI;//SDL_TRUE;
+						continuer = VRAI;//SDL_TRUE;
+					
 					break;
 				/*	
 				case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
 					//event.motion.xrel || yrel (position relative)
 					printf(" %d | %d \n",event.motion.x,event.motion.y);
 					break;
-				*/		
+						
 				case SDL_KEYDOWN: // Gestion des évenements claviers ou souris(appuyer)
 				
 					switch(event.key.keysym.sym)
 					{
 						case SDLK_a:
-							printf(" je suis la *********** A \n");
+							printf(" je suis la *********** SDLK_a\n");
 							affichagePage1(window,renderer);
-							continuer = VRAI;
+							 
 							break; 
 
 						case SDLK_b:
-							printf(" je suis la *********** B\n");
+							printf(" je suis la *********** SDLK_b\n");
 							jeu1(window,renderer);
-							continuer = VRAI;
+					 
 							break;
 
 						default:
 							break;
-					}	
+					}	*/
 				default:
 					break;
+			//}
+				
 			}
-		}
 	}
- 
+ 	
 	printf(" %d s écoulées \n",((SDL_GetTicks()-temps_Actuel)/1000));// le temps d'éxecution de la SDL
 
 	liberation_ressources(window,renderer,NULL,NULL);
