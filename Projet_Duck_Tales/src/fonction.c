@@ -89,12 +89,7 @@ void chargement_cheminA_1(int  *chemin_aller , int t)
 			chemin_aller[l]=i ;	
 				
 }
-
-extern 
-int  cheminV_1 ( int val )
-{
-		 	return ( val < TAILLE ) ;
-}
+ 
 
  /*   0,10,20,30,......,1680} */
 

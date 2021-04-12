@@ -38,11 +38,20 @@
 
 #define TAILLE 161  
  
- 
-
 /** variable utilisés principalement par la fonction pageMenu.c **/
  
 
+/** Definition du type booleen et variable entière**/
+
+typedef enum booleen_s { FAUX , VRAI } booleen_t ;
+
+//extern booleen_t  err_t ;
+
+booleen_t  continuer,temp;
+
+int scord;
+
+int i; 
 
 /** déclaration du Fichier main.c **/
 
@@ -56,7 +65,7 @@ SDL_Renderer *renderer;
 
 #define departX 0
 #define departY 535
-
+#define taillePoint 5
 
 TTF_Font *police1 ;
 
@@ -65,6 +74,8 @@ SDL_Surface *win_surf ;
 SDL_Rect point, positionTemps ;
 
 SDL_Surface *arrierePlan1,*arrierePlan2,*arrierePlan3, *arrierePlanQ;
+
+
 
 
 //   page1
@@ -82,16 +93,7 @@ SDL_Rect txtDestRect,imgDestRect;
 
 SDL_Texture *texture[tailleTexture];
 	
-/** Definition du type booleen **/
 
-typedef enum booleen_s { FAUX , VRAI } booleen_t ;
-
-//extern booleen_t  err_t ;
-
-booleen_t  continuer,temp;
-
-int i; 
- 
 #endif /* _COMMUN_H_*/
 
 

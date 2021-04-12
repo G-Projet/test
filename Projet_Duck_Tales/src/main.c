@@ -11,17 +11,17 @@
 
 int main(int argc, char** argv)
 {
-
-	SDL_Init(SDL_INIT_VIDEO);
-	
 	int temps_Actuel = SDL_GetTicks() ; 
  
 	bienvenue();
+	
+ 	SDL_Init(SDL_INIT_VIDEO);/** Initialisation de la SDL **/
  	
- 	if(SDL_VideoInit(NULL) < 0) /** Initialisation de la SDL **/
-	{	printf("Erreur d'initialisation de la SDL : %s",SDL_GetError()); return EXIT_FAILURE; }
-
-	window=NULL;
+ 	if(SDL_VideoInit(NULL) < 0) 
+ 		/** gestion des erreurs **/
+ 		{  message_erreurs("Initialisation SDL"); }
+	
+	window = NULL;
 	
   	window =  SDL_CreateWindow(
             "Duck_Tales",            // window title
@@ -36,19 +36,23 @@ int main(int argc, char** argv)
 
     renderer=NULL;
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED); 
 
-    if(renderer == NULL)/** gestion des erreurs **/
-	{ printf("Erreur lors de la creation d'un renderer : %s",SDL_GetError());return EXIT_FAILURE; }
+    if(renderer == NULL)  {  message_erreurs(" configuration renderer"); }
+	
 
-	affichagePage1(window,renderer);
+	//affichagePage1(window,renderer);
 
-	//jeu1(window,renderer);
+	 //jeu1(window,renderer);
 
 	//jeu2(window,renderer);
 	
-	//menu(window,renderer);
+	//jeu3(window,renderer);
 	
+	//jeu4(window,renderer);
+	
+	menu(window,renderer);
+	/*
 	continuer = FAUX;
 
  	while (!continuer)
@@ -94,13 +98,13 @@ int main(int argc, char** argv)
 
 						default:
 							break;
-					}	*/
+					}	
 				default:
 					break;
 			//}
 				
 			}
-	}
+	}*/
  	
 	printf(" %d s écoulées \n",((SDL_GetTicks()-temps_Actuel)/1000));// le temps d'éxecution de la SDL
 
