@@ -17,11 +17,10 @@ extern int menu(SDL_Window * window,SDL_Renderer *renderer);
 extern int affichagePage1(SDL_Window *window, SDL_Renderer *renderer);
 
 extern int jeu1(SDL_Window * window, SDL_Renderer *renderer);
-extern int jeu2(SDL_Window * window,SDL_Renderer *renderer);
-extern int jeu3(SDL_Window * window,SDL_Renderer *renderer);
-extern int jeu4(SDL_Window * window,SDL_Renderer *renderer);
+
 
 extern void chargement_cheminA_1(int  *chemin_aller , int t);
+ 
  
 
 /** libération de ressources **/

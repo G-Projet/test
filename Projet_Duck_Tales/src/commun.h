@@ -64,7 +64,7 @@ SDL_Renderer *renderer;
 /** valeurs de la position de départ du joueur jeu1 **/
 
 #define departX 0
-#define departY 535
+#define departY 530
 #define taillePoint 5
 
 TTF_Font *police1 ;
@@ -73,7 +73,7 @@ SDL_Surface *win_surf ;
 
 SDL_Rect point, positionTemps ;
 
-SDL_Surface *arrierePlan1,*arrierePlan2,*arrierePlan3, *arrierePlanQ;
+//SDL_Surface *arrierePlan1,*arrierePlan2,*arrierePlan3, *arrierePlanQ;
 
 
 
@@ -87,6 +87,8 @@ SDL_Surface * image,*image2;
 
 SDL_Surface *Stexte[tailleSurface];
 
+SDL_Surface *arrierePlan[tailleSurface];
+ 
 TTF_Font *police2 ; 
 
 SDL_Rect txtDestRect,imgDestRect;

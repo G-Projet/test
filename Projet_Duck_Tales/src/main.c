@@ -42,16 +42,11 @@ int main(int argc, char** argv)
 	
 
 	//affichagePage1(window,renderer);
+	
+	 menu(window,renderer);
 
-	 //jeu1(window,renderer);
+ 	//jeu1(window,renderer);
 
-	//jeu2(window,renderer);
-	
-	//jeu3(window,renderer);
-	
-	//jeu4(window,renderer);
-	
-	menu(window,renderer);
 	/*
 	continuer = FAUX;
 

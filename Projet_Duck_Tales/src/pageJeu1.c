@@ -1,5 +1,4 @@
 
-
 /**
 *\file pageJeu1.c 
 *\brief Fichier contenant le fonction de la 1er page du jeu
@@ -97,111 +96,117 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
     positionTemps.x =120; 
     positionTemps.y = 30;
     
-    arrierePlan1 = arrierePlanQ = NULL;
+    /** gestion arrière plans **/
+    int pl = 1; /** vaiable de defilement des plans **/
     
-	//arrierePlan1 = IMG_Load("image/paysage_dem.png");
-	//arrierePlan1 = IMG_Load("image/paysage11.png"); imag_F3.png
+ 	/** tableau surface arrière plan **/
+    for(i=0;i<tailleSurface;i++)   //arrierePlan[0] == quitter
+    	arrierePlan[i]=NULL;
 	
-	arrierePlan1 = IMG_Load("image/paysage_dem.png");
-	if(arrierePlan1==NULL)
-	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [arrierePlan1]"); }
 	
-	//arrierePlan2 = IMG_Load("image/paysage_dem.png");
-	//arrierePlan3 = IMG_Load("image/paysage_dem.png");
-	arrierePlanQ = IMG_Load("image/exit1.jpg");
-	if(arrierePlanQ==NULL)
-	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [arrierePlanQ]"); }
+	arrierePlan[1] = IMG_Load("image/paysage_dem.png");
+	arrierePlan[2]= IMG_Load("image/paysage11.png");
+	arrierePlan[3] = IMG_Load("image/imag_F5.png");
+	arrierePlan[4] = IMG_Load("image/imag_F12.png");
 	
+	arrierePlan[0] = IMG_Load("image/exit1.jpg");/** arrière plan quitter **/ 
+	
+	for(i=0;i<=4;i++)   //arrierePlan[0] == quitter
+		if (arrierePlan[i]== NULL)
+			{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [arrierePlan]"); }
+
 	// bas 
 	
-	imgBas[0] = IMG_Load("image/duck.png"); 
-	if(imgBas[0]==NULL)
-	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [ imgBas[1]"); }
+	imgBas[0] = IMG_Load("image/duck.png");
+	imgBas[1] = IMG_Load("image/bas1.png");
+	
+	for(i=0;i<=1;i++)
+		if(imgBas[0]==NULL)
+			{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image : "); 
+				printf(" \t imgBas[%i] \n",i);
+			}
+	
 	//Mettre en transeparent le fond de personnage
 	SDL_SetColorKey(imgBas[0], SDL_TRUE, SDL_MapRGB(imgBas[0]->format, 222, 222, 98));
-	
-	imgBas[1] = IMG_Load("image/bas1.png");
 	SDL_SetColorKey(imgBas[1], SDL_TRUE, SDL_MapRGB(imgBas[1]->format, 222, 222, 98));
 	
-	/** obstacle **/
+	
+	/** Chargement images obstacle **/
 	
 	imgObstacle[0] = IMG_Load("image/arbre.png");
 	SDL_SetColorKey(imgObstacle[0], SDL_TRUE, SDL_MapRGB(imgObstacle[0]->format, 80, 240, 240));
 	
 	/** fin obstacle **/
 	
-	
 	// haut 
 	
 	imgHaut[0] = IMG_Load("image/duck.png");
-	if(imgHaut[0]==NULL)
-	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [ haut[1] ]"); }
-	SDL_SetColorKey(imgHaut[0], SDL_TRUE, SDL_MapRGB(imgHaut[0]->format, 222, 222, 98));
-	
 	imgHaut[1] = IMG_Load("image/duck.png");
-	SDL_SetColorKey(imgHaut[1], SDL_TRUE, SDL_MapRGB(imgHaut[1]->format, 222, 222, 98));
-	
 	imgHaut[2] = IMG_Load("image/duck.png");
+	
+	for(i=0;i<=2;i++)
+		if(imgHaut[i]==NULL)
+		{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs(" Chargement image : "); 
+			printf(" \t imgHaut[%i] \n",i);}
+	
+	SDL_SetColorKey(imgHaut[0], SDL_TRUE, SDL_MapRGB(imgHaut[0]->format, 222, 222, 98));
+	SDL_SetColorKey(imgHaut[1], SDL_TRUE, SDL_MapRGB(imgHaut[1]->format, 222, 222, 98));
 	SDL_SetColorKey(imgHaut[2], SDL_TRUE, SDL_MapRGB(imgHaut[2]->format, 222, 222, 98));
 
 	
 	// droite:
 
 	imgDroit[0] = IMG_Load("image/vers_droit0.png");
-	if(imgDroit[0]==NULL)
-	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [ droite[1] ]"); }
-	SDL_SetColorKey(imgDroit[0], SDL_TRUE, SDL_MapRGB(imgDroit[0]->format, 222, 222, 98));
-
 	imgDroit[1] = IMG_Load("image/vers_droit1.png");
-	SDL_SetColorKey(imgDroit[1], SDL_TRUE, SDL_MapRGB(imgDroit[1]->format, 222, 222, 98));
-	 
 	imgDroit[2] = IMG_Load("image/vers_droit2.png");
-	SDL_SetColorKey(imgDroit[2], SDL_TRUE, SDL_MapRGB(imgDroit[2]->format, 222, 222, 98));
-	
 	imgDroit[3] = IMG_Load("image/vers_droit3.png");
-	SDL_SetColorKey(imgDroit[3], SDL_TRUE, SDL_MapRGB(imgDroit[3]->format, 222, 222, 98));
-	
 	imgDroit[4] = IMG_Load("image/vers_droit4.png");
-	SDL_SetColorKey(imgDroit[4], SDL_TRUE, SDL_MapRGB(imgDroit[4]->format, 222, 222, 98));
-	
 	imgDroit[5] = IMG_Load("image/vers_droit5.png");
-	SDL_SetColorKey(imgDroit[5], SDL_TRUE, SDL_MapRGB(imgDroit[5]->format, 222, 222, 98));
- 
-	
 	imgDroit[6] = IMG_Load("image/vers_droit6.png");
+	
+	for(i=0;i<7;i++)
+		if(imgDroit[i]==NULL)
+		{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image : "); 
+				printf(" \t imgDroit[%i] \n",i);
+		}
+			
+	SDL_SetColorKey(imgDroit[0], SDL_TRUE, SDL_MapRGB(imgDroit[0]->format, 222, 222, 98));
+	SDL_SetColorKey(imgDroit[1], SDL_TRUE, SDL_MapRGB(imgDroit[1]->format, 222, 222, 98));
+	SDL_SetColorKey(imgDroit[2], SDL_TRUE, SDL_MapRGB(imgDroit[2]->format, 222, 222, 98));
+	SDL_SetColorKey(imgDroit[3], SDL_TRUE, SDL_MapRGB(imgDroit[3]->format, 222, 222, 98));
+	SDL_SetColorKey(imgDroit[4], SDL_TRUE, SDL_MapRGB(imgDroit[4]->format, 222, 222, 98));
+	SDL_SetColorKey(imgDroit[5], SDL_TRUE, SDL_MapRGB(imgDroit[5]->format, 222, 222, 98));
 	SDL_SetColorKey(imgDroit[6], SDL_TRUE, SDL_MapRGB(imgDroit[6]->format, 222, 222, 98));
  	
  	// gauche 
  	
-	imgGauche[0] = IMG_Load("image/vers_gauche0.png");
-	if(imgGauche[0]==NULL)
-	{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image [ gauche[1] ]"); }
-	SDL_SetColorKey(imgGauche[0], SDL_TRUE, SDL_MapRGB(imgGauche[0]->format, 222, 222, 98));
- 
-	imgGauche[1] = IMG_Load("image/vers_gauche1.png");
-	SDL_SetColorKey(imgGauche[1], SDL_TRUE, SDL_MapRGB(imgGauche[1]->format, 222, 222, 98));
-	 
-	imgGauche[2] = IMG_Load("image/vers_gauche2.png");
-	SDL_SetColorKey(imgGauche[2], SDL_TRUE, SDL_MapRGB(imgGauche[2]->format, 222, 222, 98));
-	
-	imgGauche[3] = IMG_Load("image/vers_gauche3.png");
-	SDL_SetColorKey(imgGauche[3], SDL_TRUE, SDL_MapRGB(imgGauche[3]->format, 222, 222, 98));
-	
-	imgGauche[4] = IMG_Load("image/vers_gauche4.png");
-	SDL_SetColorKey(imgGauche[4], SDL_TRUE, SDL_MapRGB(imgGauche[4]->format, 222, 222, 98));
-	
+ 	imgGauche[0] = IMG_Load("image/vers_gauche0.png");
+ 	imgGauche[1] = IMG_Load("image/vers_gauche1.png");
+ 	imgGauche[2] = IMG_Load("image/vers_gauche2.png");
+ 	imgGauche[3] = IMG_Load("image/vers_gauche3.png");
+ 	imgGauche[4] = IMG_Load("image/vers_gauche4.png");
  	imgGauche[5] = IMG_Load("image/vers_gauche5.png");
+ 	imgGauche[6] = IMG_Load("image/vers_gauche6.png");
+ 	
+	for(i=0;i<7;i++)
+		if(imgGauche[0]==NULL)
+		{	liberation_ressources(window,NULL,NULL, NULL);	message_erreurs("Chargement image : ");
+			printf(" \t imgGauche[%i] \n",i);
+		}
+			
+	SDL_SetColorKey(imgGauche[0], SDL_TRUE, SDL_MapRGB(imgGauche[0]->format, 222, 222, 98));
+	SDL_SetColorKey(imgGauche[1], SDL_TRUE, SDL_MapRGB(imgGauche[1]->format, 222, 222, 98));
+	SDL_SetColorKey(imgGauche[2], SDL_TRUE, SDL_MapRGB(imgGauche[2]->format, 222, 222, 98));
+	SDL_SetColorKey(imgGauche[3], SDL_TRUE, SDL_MapRGB(imgGauche[3]->format, 222, 222, 98));
+	SDL_SetColorKey(imgGauche[4], SDL_TRUE, SDL_MapRGB(imgGauche[4]->format, 222, 222, 98));
 	SDL_SetColorKey(imgGauche[5], SDL_TRUE, SDL_MapRGB(imgGauche[5]->format, 222, 222, 98));
-  	
-  imgGauche[6] = IMG_Load("image/vers_gauche6.png");
 	SDL_SetColorKey(imgGauche[6], SDL_TRUE, SDL_MapRGB(imgGauche[6]->format, 222, 222, 98));
 	
   	win_surf=NULL;
-  	
 	win_surf = SDL_GetWindowSurface(window);
  	
  	SDL_FillRect(win_surf, NULL, SDL_MapRGB(win_surf->format,0, 0, 0));/** actualisation du font(noir) **/
- 	
+ 	 
  	int saut=0;
  	int nb=0;
  	int l=0; //compteur de position chemin
@@ -214,39 +219,41 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
    	
 	while (!continuer)
 	{
+		SDL_FillRect(win_surf, NULL, SDL_MapRGB(win_surf->format,0, 0, 0));//font noir
+		/** temps **/
 		temps+= (SDL_GetTicks()/1000) ;
 		sprintf(c1, "%d" , temps);
 		Stexte[0] = TTF_RenderText_Blended(police1, c1, couleurJaune);//init surface temps
 		Stexte[1] = TTF_RenderText_Blended(police1, "temps : ", couleurJaune);
-		
-		sprintf(c3, "%d" , scord);
-		Stexte[3] = TTF_RenderText_Blended(police1,c3, couleurJaune); // init surface scord
-		Stexte[4] = TTF_RenderText_Blended(police1, "scord : ", couleurJaune);
-		
-		SDL_FillRect(win_surf, NULL, SDL_MapRGB(win_surf->format,0, 0, 0));//font noir
-		
 		SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps); // surface temps
 		SDL_BlitSurface(Stexte[1], NULL, win_surf, &eTemps);
 		
+		/** points **/
+		sprintf(c3, "%d" , scord);
+		Stexte[3] = TTF_RenderText_Blended(police1,c3, couleurJaune); // init surface scord
+		Stexte[4] = TTF_RenderText_Blended(police1, "scord : ", couleurJaune);
 		SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
 		SDL_BlitSurface(Stexte[4], NULL, win_surf, &eScord); // surface scord
 		
+		/** arrière plans 1  **/
 		
-		SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect );//surface arrière plan
+		SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
+			
+		/** obstacle **/
+		SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
 		
-		SDL_BlitSurface (arrierePlanQ, NULL,win_surf, &cQuit);//surface arrière plan
-		
-		
+		/** joueur **/
 		SDL_BlitSurface (imgDroit[0], NULL, win_surf, &point);// surface joueur
 		
-		SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
+		/** arrière plan quitter **/
+		SDL_BlitSurface (arrierePlan[0], NULL,win_surf, &cQuit);//surface quitter (exit)
 		
 		//SDL_PollEvent(&event);
 		SDL_WaitEvent(&event);
 														 
 		switch(event.type) 
 		{
-		     case SDL_QUIT:
+		    case SDL_QUIT:
 		    	 printf(" arrêt inopiné : Page Jeu1...........\n");
 		    	 temp=VRAI;
 				 continuer = VRAI;
@@ -283,13 +290,19 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 
 						temp_actuel = SDL_GetTicks();
 
-						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						/** gestion arrière plans **/ 
+						
+						SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
+							
+						//..................................
+						
 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
- 	
+						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+						
 						SDL_BlitSurface(imgHaut[h], NULL, win_surf, &point);
+						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
 						
 						if(h<=2)
-						
 							h++;
 						else
 							h=0;
@@ -314,9 +327,14 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
  
 					case SDLK_DOWN:// mouvement vers le ******************** bas
 					
-						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						/** gestion arrière plans **/ 
+						SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
  
+ 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
+						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+						
 						SDL_BlitSurface(imgBas[1], NULL, win_surf, &point);
+						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
 							
 						break;
  
@@ -347,11 +365,16 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 
 							point.y+= 35;
 						}
-
-						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
+						
+						/** gestion arrière plans **/ 
+						
+						SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
+						
 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
- 
+						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+ 					 
 						SDL_BlitSurface(imgGauche[g], NULL, win_surf, &point);
+						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
 						
 						if(g<=2)
 							g++;
@@ -362,9 +385,12 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 					
 					case SDLK_RIGHT: // ********************** droite 
 
-						if (point.y==515)
+						if(pl==1)
 						{
-							point.y +=20;  saut=0;
+							if (point.y==515)
+							{
+								point.y +=15;  saut=0;
+							}
 						}
 						if(point.x==longueur_ecran)
 						
@@ -381,37 +407,83 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 								printf(" tabPoint[%i] = %i , point.x = %i \n",l,tabPoint[l],point.x);
 								scord++;
 							}
-
-						if(point.x == 640)
-
-							point.y+= 35;
-
-						if(point.x == 1300)
-
-							point.y-= 35;
-	 
-						SDL_BlitSurface (arrierePlan1, NULL,win_surf, &dest_rect); // arrière plan
-						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
- 
- 						if(d<7)//gestion du difilement d'images
- 						{
- 							//printf("droite : d= %i l= %i, chemin_aller_H (%i , %i )\n",d,l,chemin_aller[l],point.y);
- 										
-							SDL_BlitSurface(imgDroit[d++], NULL, win_surf, &point);
+							
+						/** gestion arrierePlan[1] **/
+						
+						if(pl==1)
+						{
+							if(point.x == 640) point.y+= 35;
+							if(point.x == 1300) point.y-= 35;
+						}
+					 
+						/** gestion arrierePlan[2] **/
+						if(pl==2)
+						{
+							if(point.x == 1340) point.y+= 35;
+						}
+						/** gestion arrierePlan[3] **/
+						
+						if(pl==3)
+						{	
+							if(point.x == 560) point.y-= 40;
+							if(point.x == 650) point.y-= 40;						
+							if(point.x == 780) point.y+= 40;						
+							if(point.x == 880) point.y+= 40;	
+							if(point.x == 1070) point.y-= 40;		
+							if(point.x == 1170) point.y-= 40;	
+							if(point.x == 1300) point.y+= 40;	
+							if(point.x == 1400) point.y+= 40;
+							
+						}
+						/** gestion arrierePlan[4] **/
+						
+						if(pl==4)
+						{		
+							if(point.x == 900) point.y-= 40;		
+							if(point.x == 1110) point.y-= 40;	
+							if(point.x == 1330) point.y-= 40;	
+							if(point.x == 1550) point.y-= 40;
+						}
+						
+						printf(" point.x = %i, point.y = %i \n", point.x,point.y);
+						/** gestion arrière plans **/ 
+						
+	 					if(point.x < 1600)
+	 					{	printf("1- je suis la arrierePlan[%i]\n",pl);
+							SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan	
 						}
 						else
-							d=0;
-						
-						SDL_BlitSurface(imgBas[2], NULL, win_surf, &pSerp); 
+							if(pl==1 )
+								pl = 2;
+							else 
+								if(pl==2)
+									pl=3;
+								else
+									if(pl==3)
+										pl=4;
+									else
+									{
+										pl=1;
+										point.x=departX;
+										point.y=departY;
+									}
 
+ 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
+ 						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+ 						/** affichage obstacle **/
+						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);
+ 						
+ 						if(d<7)//gestion du difilement d'images			
+							SDL_BlitSurface(imgDroit[d++], NULL, win_surf, &point);	
+						else
+							d=0;/** remise à zéro du compteur d'images **/
+							
 						break;	
 				}	
 				
 			default:
 					break;
 		}
-		
-		printf(" je passe par la ................... \n");
 		 
 		SDL_UpdateWindowSurface(window);//actualisation de la page.	
     }
@@ -428,9 +500,10 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
   
     liberation_ressourcesSurface(Stexte);
  
- 	SDL_FreeSurface(arrierePlan1);
- 	 
- 	SDL_FreeSurface(arrierePlanQ); 
+ 	for(i=0;i<tailleSurface;i++)
+ 	 if( arrierePlan[i]!= NULL )
+ 	 	SDL_FreeSurface(arrierePlan[i]);
+
 	SDL_FreeSurface(win_surf);
 	
 	TTF_Quit();

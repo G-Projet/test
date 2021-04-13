@@ -32,7 +32,7 @@ void bienvenue()
 extern
 char message_erreurs(const char* message )
 {
-	fprintf(stderr, "ERREUR : %s >(%s)\n", message, SDL_GetError());
+	fprintf(stderr, "ERREUR : %s >(%s) \n", message, SDL_GetError());
 	SDL_Quit(); // On quitte la SDL
 	return EXIT_FAILURE;
 }
@@ -90,7 +90,9 @@ void chargement_cheminA_1(int  *chemin_aller , int t)
 				
 }
  
-
+ 
+	
+	
  /*   0,10,20,30,......,1680} */
 
  
