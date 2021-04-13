@@ -127,60 +127,6 @@ int affichagePage1(SDL_Window *window, SDL_Renderer *renderer)
 	char c1[6]; sprintf(c1, "%d ." , nb.major);
 	char c2[6]; sprintf(c2, "%d ." , nb.minor);
 	char c3[6]; sprintf(c3, "%d ." , nb.patch); 
-
-	temp=FAUX;
-	continuer=FAUX;
-	
-	while (!continuer)
-	{     	
-    	//while(SDL_PollEvent(&event))
-		//{
-			SDL_WaitEvent(&event);
-			
-			switch(event.type)
-			{
-				case SDL_QUIT:
-					printf(" arrêt inopiné : Page Générique...........\n");
-					temp=VRAI;
-					continuer= VRAI;  
-					break;
-					
-				case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
-					printf(" %d | %d \n",event.motion.x,event.motion.y);
-					break;
-					
-					//5 = largeur bouton = longueur bouton	
-				case SDL_MOUSEBUTTONUP:
-						if (event.button.button == SDL_BUTTON_LEFT)
-						{//printf(" j'appuie sur la gauche de la souris *******  1\n");
-						
-							if(event.button.x > 700 && event.button.x < 
-								800 && event.button.y > 720 && event.button.y < 770) // joueur 
-								
-			// Test des coordonnées de la souris pour savoir si elles sont au meme emplacement que le bouton 1
-							{
-								printf(" j'appuie sur la gauche de la souris *******  2\n");
-								menu(window,renderer);
-								 
-							} 
-						}
-						
-				
-				case SDL_KEYDOWN:// entrée clavier
-					switch (event.key.keysym.sym)
-					{
-						case SDLK_q:
-							printf(" je rentre ici a page G .......................1\n");						
-							continuer = VRAI;						
-							break;
-						
-						default:
-							break;
-					}
-						
-				default:
-						break;			
-			} 
 			
 			SDL_RenderClear( renderer );
 
@@ -272,8 +218,61 @@ int affichagePage1(SDL_Window *window, SDL_Renderer *renderer)
 			SDL_RenderCopy(renderer, texture[7], NULL, &entree); // bouton entree
 						
 		    SDL_RenderPresent(renderer);
-  	 // }
-   }
+  		
+  	temp=FAUX;
+	continuer=FAUX;
+	
+	while (!continuer)
+	{     	
+    	//while(SDL_PollEvent(&event))
+		//{
+			SDL_WaitEvent(&event);
+			
+			switch(event.type)
+			{
+				case SDL_QUIT:
+					printf(" arrêt inopiné : Page Générique...........\n");
+					//temp=VRAI;
+					continuer= VRAI;  
+					break;
+					
+				case SDL_MOUSEMOTION: // gestion coordonnées de la souris 
+					printf(" %d | %d \n",event.motion.x,event.motion.y);
+					break;
+					
+					//5 = largeur bouton = longueur bouton	
+				case SDL_MOUSEBUTTONUP:
+						if (event.button.button == SDL_BUTTON_LEFT)
+						{//printf(" j'appuie sur la gauche de la souris *******  1\n");
+						
+							if(event.button.x > 700 && event.button.x < 
+								800 && event.button.y > 720 && event.button.y < 770) // entrée
+								
+			// Test des coordonnées de la souris pour savoir si elles sont au meme emplacement que le bouton 1
+							{
+								printf(" j'appuie sur la gauche de la souris *******  2\n");
+								//menu(window,renderer);
+								continuer= VRAI; 	 
+							} 
+						}
+						
+				case SDL_KEYDOWN:// entrée clavier
+					switch (event.key.keysym.sym)
+					{
+						case SDLK_q:
+							printf(" je rentre ici a page G .......................1\n");						
+							continuer = VRAI;						
+							break;
+						
+						default:
+							break;
+					}
+						
+				default:
+						break;			
+			} 
+		}
+   
    
     if(temp!=VRAI)/** on quite la page, mais on reste dans le jeu **/
     
@@ -290,6 +289,8 @@ int affichagePage1(SDL_Window *window, SDL_Renderer *renderer)
  
 	TTF_Quit();
 	printf(" je sort part la générique .................\n");
+	
+	menu(window,renderer);
     return EXIT_SUCCESS;
 }
 

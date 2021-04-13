@@ -39,119 +39,143 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 	
 	
 	image=NULL;	
-	if( (image = IMG_Load("image/images.jpeg"))==NULL)
+	if( (image = IMG_Load("image/images.jpeg"))==NULL) // bouton vert
 	{ printf("erreurs : Ouverture image \n "); return EXIT_FAILURE;}
- 
+ 	texture[0] = SDL_CreateTextureFromSurface(renderer, image);
+ 	
 	// texte : ************************************************************
 	
-	
-	
 	police = TTF_OpenFont("image/JMH Typewriter.ttf", 30);
-	
+
 	if (police == NULL){ printf("erreurs : Ouverture police \n "); return EXIT_FAILURE;}
 		
 	texte = TTF_RenderText_Solid(police, 
         "  Bienvenue sur la platforme de jeux Duck_Tales ", couleurBlanche);
+        
     if (texte == NULL){ printf("erreurs : Ouverture texte \n "); return EXIT_FAILURE;}
-		    
+    	    
     texture[1]=SDL_CreateTextureFromSurface(renderer, texte);
-    
     if (texture[1] == NULL) { printf("erreurs : Ouverture texture_txt \n "); return EXIT_FAILURE;}
+    //................
     
-    txtDestRect.x=400;   txtDestRect.y=50;
- 
-    SDL_QueryTexture(texture[1], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[1], NULL, &txtDestRect);
-	
-	texte = TTF_RenderText_Solid(police, "  Menu ", couleurBlanche);
+    texte = TTF_RenderText_Solid(police, "  Menu ", couleurBlanche);
 	texture[2]=SDL_CreateTextureFromSurface(renderer, texte);
-	
-	txtDestRect.x=700;   txtDestRect.y=130;
- 
-    SDL_QueryTexture(texture[2], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[2], NULL, &txtDestRect);
-	
-		// boutons : **********************************************************
-	//1
-	texture[0] = SDL_CreateTextureFromSurface(renderer, image);
-	imgDestRect.x=420; imgDestRect.y=250;
-	SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
-					 	
-	texte = TTF_RenderText_Solid(police, "  Joueur seul ", couleurBlanche);	    
+    //..............................
+    
+    
+    //..............................
+    texte = TTF_RenderText_Solid(police, "  Joueur seul ", couleurBlanche);	    
     texture[3]=SDL_CreateTextureFromSurface(renderer, texte);
-    txtDestRect.x=450;   txtDestRect.y=245;
-    SDL_QueryTexture(texture[3], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[3], NULL, &txtDestRect);
-	
-	//2
-	imgDestRect.y=300;
-	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
-	
+ 
+	//.......................
 	texte = TTF_RenderText_Solid(police, "  Ordinateur seul ", couleurBlanche);	    
     texture[4]=SDL_CreateTextureFromSurface(renderer, texte);
-    txtDestRect.y=300;
-    SDL_QueryTexture(texture[4], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[4], NULL, &txtDestRect);
-	
-	//3
-
-	imgDestRect.y=350;
-	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
-	
-	texte = TTF_RenderText_Solid(police, "  Ordinateur contre Joueur ", couleurBlanche);	    
+    //..........................
+    texte = TTF_RenderText_Solid(police, "  Ordinateur contre Joueur ", couleurBlanche);	    
     texture[5]=SDL_CreateTextureFromSurface(renderer, texte);
-    txtDestRect.y=350;
-    SDL_QueryTexture(texture[5], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[5], NULL, &txtDestRect);
-	
-	//4
-		
-	imgDestRect.y=400;
-	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
-	
-	texte = TTF_RenderText_Solid(police, "  Reprendre la partie ", couleurBlanche);	    
+    //.......
+    texte = TTF_RenderText_Solid(police, "  Reprendre la partie ", couleurBlanche);	    
     texture[6]=SDL_CreateTextureFromSurface(renderer, texte);
-    txtDestRect.y=400;
-    SDL_QueryTexture(texture[6], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[6], NULL, &txtDestRect);
-	
-	//5
-		
-	imgDestRect.y=450;
-	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
-	
-	texte = TTF_RenderText_Solid(police, "  Historique de jeu ", couleurBlanche);	    
+    //.....................
+    texte = TTF_RenderText_Solid(police, "  Historique de jeu ", couleurBlanche);	    
     texture[7]=SDL_CreateTextureFromSurface(renderer, texte);
-    txtDestRect.y=450;
-    SDL_QueryTexture(texture[7], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[7], NULL, &txtDestRect);
-	
-	//6
-	
-	imgDestRect.y=500;
-	//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
-	
-	texte = TTF_RenderText_Solid(police, "  Quitter ", couleurBlanche);	    
+    //...................................
+    texte = TTF_RenderText_Solid(police, "  Quitter ", couleurBlanche);	    
     texture[8]=SDL_CreateTextureFromSurface(renderer, texte);
-    txtDestRect.y=500;
-    SDL_QueryTexture(texture[8], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texture[8], NULL, &txtDestRect);
-	
-	// presentation du menu 
-	SDL_RenderPresent(renderer);
-	
-	SDL_RenderClear( renderer );
-	
+    //.......................
+    
+    
+    
+    
 	continuer=FAUX;
-	
+	temp=FAUX;
 	while (!continuer)
 	{
+	
+		
+		txtDestRect.x=400;   txtDestRect.y=50;
+		SDL_QueryTexture(texture[1], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		SDL_RenderCopy(renderer, texture[1], NULL, &txtDestRect);
+
+		//.............................
+		txtDestRect.x=700;   txtDestRect.y=130;
+		SDL_QueryTexture(texture[2], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		SDL_RenderCopy(renderer, texture[2], NULL, &txtDestRect);
+		
+			// boutons : **********************************************************
+			
+		//1
+		imgDestRect.x=420; imgDestRect.y=250;
+		SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
+		SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
+				 	
+		txtDestRect.x=450;   txtDestRect.y=245;
+		SDL_QueryTexture(texture[3], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		SDL_RenderCopy(renderer, texture[3], NULL, &txtDestRect);
+		
+		//2
+		imgDestRect.y=300;
+		SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
+		SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
+		//................
+		
+		
+		txtDestRect.y=300;
+		SDL_QueryTexture(texture[4], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		SDL_RenderCopy(renderer, texture[4], NULL, &txtDestRect);
+	
+		//3
+
+		imgDestRect.y=350;
+		//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
+		SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
+		
+		
+		txtDestRect.y=350;
+		SDL_QueryTexture(texture[5], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		
+		SDL_RenderCopy(renderer, texture[5], NULL, &txtDestRect);
+		
+		//4
+		
+		imgDestRect.y=400;
+		//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
+		SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
+		
+		
+		txtDestRect.y=400;
+		SDL_QueryTexture(texture[6], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		
+		SDL_RenderCopy(renderer, texture[6], NULL, &txtDestRect);
+		
+		//5
+			
+		imgDestRect.y=450;
+		//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
+		SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
+		
+			
+		txtDestRect.y=450;
+		SDL_QueryTexture(texture[7], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		
+		SDL_RenderCopy(renderer, texture[7], NULL, &txtDestRect);
+		
+		//6
+		
+		imgDestRect.y=500;
+		//SDL_QueryTexture(texture[0], NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
+		SDL_RenderCopy(renderer, texture[0], NULL, &imgDestRect);
+		
+		txtDestRect.y=500;
+		SDL_QueryTexture(texture[8], NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		SDL_RenderCopy(renderer, texture[8], NULL, &txtDestRect);
+		
+		// presentation du menu 
+		
+		SDL_RenderPresent(renderer);
+		SDL_RenderClear( renderer );
+	
+	
 		//while(SDL_PollEvent(&event))
 		//{
 			SDL_WaitEvent(&event);
@@ -159,7 +183,7 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 			switch(event.type)
 			{    
 				case SDL_QUIT:
-					
+					temp=VRAI;
 					continuer =VRAI;//SDL_TRUE;
 					break;
 					
@@ -217,9 +241,14 @@ int menu(SDL_Window * window,SDL_Renderer *renderer)
 				default:
 					break;
 			}
-		//}
+		 
 	}
-
+	printf(" je sort par la ************* menu  \n");
+	
+    if(temp==FAUX)
+    
+		continuer=FAUX;
+	
 	SDL_FreeSurface(image);	
 	
 	liberation_ressourcesTTF(police,NULL);

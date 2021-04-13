@@ -41,9 +41,9 @@ int main(int argc, char** argv)
     if(renderer == NULL)  {  message_erreurs(" configuration renderer"); }
 	
 
-	//affichagePage1(window,renderer);
+	affichagePage1(window,renderer);
 	
-	 menu(window,renderer);
+	 //menu(window,renderer);
 
  	//jeu1(window,renderer);
 

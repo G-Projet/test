@@ -49,7 +49,7 @@ typedef enum booleen_s { FAUX , VRAI } booleen_t ;
 
 booleen_t  continuer,temp;
 
-int scord;
+int score;
 
 int i; 
 

@@ -44,18 +44,18 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
     point.x = departX; /** initialisation des coordonnées de départ du joueur **/
     point.y = departY; //535;
     
-    SDL_Rect pSerp,pScord, eScord,eTemps,cQuit;
+    SDL_Rect pSerp,pScore, eScore,eTemps,cQuit;
     
     pSerp.x=  300; /** initialisation des coordonnées du serpent **/
     pSerp.y=  535;
     
-    scord = 0;/** initialisation des coordonnées du temps **/
+    score = 0;/** initialisation des coordonnées du temps **/
     
-    pScord.x=  1500;
-    pScord.y=  30;
+    pScore.x=  1500;
+    pScore.y=  30;
     
-    eScord.x = 1400; /** initialisation des coordonnées du scord **/
-    eScord.y = 30;
+    eScore.x = 1400; /** initialisation des coordonnées du score **/
+    eScore.y = 30;
     
     cQuit.x=700;
     cQuit.y=720;
@@ -136,6 +136,10 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 	imgObstacle[0] = IMG_Load("image/arbre.png");
 	SDL_SetColorKey(imgObstacle[0], SDL_TRUE, SDL_MapRGB(imgObstacle[0]->format, 80, 240, 240));
 	
+	imgObstacle[1] = IMG_Load("image/S2.png");
+	SDL_SetColorKey(imgObstacle[1], SDL_TRUE, SDL_MapRGB(imgObstacle[1]->format, 80, 240, 240));
+	
+	
 	/** fin obstacle **/
 	
 	// haut 
@@ -153,7 +157,6 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 	SDL_SetColorKey(imgHaut[1], SDL_TRUE, SDL_MapRGB(imgHaut[1]->format, 222, 222, 98));
 	SDL_SetColorKey(imgHaut[2], SDL_TRUE, SDL_MapRGB(imgHaut[2]->format, 222, 222, 98));
 
-	
 	// droite:
 
 	imgDroit[0] = IMG_Load("image/vers_droit0.png");
@@ -221,7 +224,7 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 	{
 		SDL_FillRect(win_surf, NULL, SDL_MapRGB(win_surf->format,0, 0, 0));//font noir
 		/** temps **/
-		temps+= (SDL_GetTicks()/1000) ;
+		temps+= (SDL_GetTicks()/1000/60) ;
 		sprintf(c1, "%d" , temps);
 		Stexte[0] = TTF_RenderText_Blended(police1, c1, couleurJaune);//init surface temps
 		Stexte[1] = TTF_RenderText_Blended(police1, "temps : ", couleurJaune);
@@ -229,18 +232,21 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 		SDL_BlitSurface(Stexte[1], NULL, win_surf, &eTemps);
 		
 		/** points **/
-		sprintf(c3, "%d" , scord);
-		Stexte[3] = TTF_RenderText_Blended(police1,c3, couleurJaune); // init surface scord
-		Stexte[4] = TTF_RenderText_Blended(police1, "scord : ", couleurJaune);
-		SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
-		SDL_BlitSurface(Stexte[4], NULL, win_surf, &eScord); // surface scord
+		sprintf(c3, "%d" , score);
+		Stexte[3] = TTF_RenderText_Blended(police1,c3, couleurJaune); // init surface score
+		Stexte[4] = TTF_RenderText_Blended(police1, "score : ", couleurJaune);
+		SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScore); // surface score
+		SDL_BlitSurface(Stexte[4], NULL, win_surf, &eScore); // surface score
 		
 		/** arrière plans 1  **/
 		
 		SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
 			
 		/** obstacle **/
+		if(pl==1)
 		SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
+		if(pl==2)
+		SDL_BlitSurface(imgObstacle[1], NULL, win_surf, &pSerp);/** affichage obstacle **/
 		
 		/** joueur **/
 		SDL_BlitSurface (imgDroit[0], NULL, win_surf, &point);// surface joueur
@@ -273,7 +279,8 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 					if(event.button.x > 700 && event.button.x < 
 						800 && event.button.y > 720 && event.button.y < 770)/** joueur **/ 
 					{
-						menu(window,renderer);
+						//menu(window,renderer);
+						continuer= VRAI;
 					} 
 				}
 				break;
@@ -297,32 +304,28 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						//..................................
 						
 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
-						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScore); // surface score
 						
 						SDL_BlitSurface(imgHaut[h], NULL, win_surf, &point);
+						/** obstacle **/
+						if(pl==1)
 						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
+						if(pl==2)
+						SDL_BlitSurface(imgObstacle[1], NULL, win_surf, &pSerp);/** affichage obstacle **/
 						
 						if(h<=2)
 							h++;
 						else
 							h=0;
 
-						printf("saut : s = %d chemin_aller_H (%i , %i ) \n",h,chemin_aller[l],point.y);
-
-						//if(saut==0 ) // pour verouiller le nombre de saut
-						//{
-							point.y -=160;
-							//saut++;
-
-							nb++;
-						//}
-
+						point.y -=100;
+						nb++;
+					 
 						if(nb==2)
 						{
-							point.y +=320;
+							point.y +=200;
 							nb=0;
 						}
-
 						break;			
  
 					case SDLK_DOWN:// mouvement vers le ******************** bas
@@ -331,10 +334,14 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
  
  						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
-						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScore); // surface score
 						
-						SDL_BlitSurface(imgBas[1], NULL, win_surf, &point);
+						if(pl==1)
 						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
+						if(pl==2)
+						SDL_BlitSurface(imgObstacle[1], NULL, win_surf, &pSerp);/** affichage obstacle **/
+						
+						SDL_BlitSurface(imgBas[1], NULL, win_surf, &point);//joueur
 							
 						break;
  
@@ -344,37 +351,66 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						{
 							point.y +=20; saut=0;
 						}	
-						if(point.x==departX)
 
-							point.x=departX;
+						//on recuprère la position de X
+						for( l=TAILLE; point.x != chemin_aller[l]; l-- );  
 
-						else
+						printf("gauche : g = %d chemin_aller_H (%i , %i ) \n",g,chemin_aller[l],point.y);
+
+						point.x = chemin_aller[--l];
+
+						/** gestion arrierePlan[1] **/
+						
+						if(pl==1)
 						{
-							//on recuprère la position de X
-							for( l=TAILLE; point.x != chemin_aller[l]; l-- );  
-
-							printf("gauche : g = %d chemin_aller_H (%i , %i ) \n",g,chemin_aller[l],point.y);
-
-							point.x = chemin_aller[--l];
-
-							if(point.x == 640)
-
-							point.y-= 35;
-
-							if(point.x == 1300)
-
-							point.y+= 35;
+							if(point.x == 640) point.y-= 35;
+							if(point.x == 1300) point.y+= 35;
+							 
+						}
+					 
+						/** gestion arrierePlan[2] **/
+						if(pl==2)
+						{
+							if(point.x == 1340) point.y-= 35;
+						}
+						/** gestion arrierePlan[3] **/
+						
+						if(pl==3)
+						{	
+							if(point.x == 560) point.y+= 40;
+							if(point.x == 650) point.y+= 40;						
+							if(point.x == 780) point.y-= 40;						
+							if(point.x == 880) point.y-= 40;	
+							if(point.x == 1070) point.y+= 40;		
+							if(point.x == 1170) point.y+= 40;	
+							if(point.x == 1300) point.y-= 40;	
+							if(point.x == 1400) point.y-= 40;	
+						}
+						/** gestion arrierePlan[4] **/
+						
+						if(pl==4)
+						{		
+							if(point.x == 900) point.y+= 50;		
+							if(point.x == 1110) point.y+= 50;	
+							if(point.x == 1330) point.y+= 40;	
+							if(point.x == 1550) point.y+= 40;
 						}
 						
+						printf(" point.x = %i, point.y = %i \n", point.x,point.y);
+
 						/** gestion arrière plans **/ 
 						
 						SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
 						
 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
-						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
+						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface score
  					 
 						SDL_BlitSurface(imgGauche[g], NULL, win_surf, &point);
+						
+						if(pl==1)
 						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);// surface obstacle
+						if(pl==2)
+						SDL_BlitSurface(imgObstacle[1], NULL, win_surf, &pSerp);/** affichage obstacle **/
 						
 						if(g<=2)
 							g++;
@@ -382,7 +418,7 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 							g=1;
 
 						break;
-					
+
 					case SDLK_RIGHT: // ********************** droite 
 
 						if(pl==1)
@@ -402,11 +438,11 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						
 						for( l=0; l<taillePoint && point.x != tabPoint[l]; l++ );/** géstion des points **/
 						
-							if(tabPoint[l] == point.x)
-							{
-								printf(" tabPoint[%i] = %i , point.x = %i \n",l,tabPoint[l],point.x);
-								scord++;
-							}
+						if(tabPoint[l] == point.x)
+						{
+							printf(" tabPoint[%i] = %i , point.x = %i \n",l,tabPoint[l],point.x);
+							score++;
+						}
 							
 						/** gestion arrierePlan[1] **/
 						
@@ -414,6 +450,7 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						{
 							if(point.x == 640) point.y+= 35;
 							if(point.x == 1300) point.y-= 35;
+							
 						}
 					 
 						/** gestion arrierePlan[2] **/
@@ -439,8 +476,8 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						
 						if(pl==4)
 						{		
-							if(point.x == 900) point.y-= 40;		
-							if(point.x == 1110) point.y-= 40;	
+							if(point.x == 900) point.y-= 50;		
+							if(point.x == 1110) point.y-= 50;	
 							if(point.x == 1330) point.y-= 40;	
 							if(point.x == 1550) point.y-= 40;
 						}
@@ -448,12 +485,9 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 						printf(" point.x = %i, point.y = %i \n", point.x,point.y);
 						/** gestion arrière plans **/ 
 						
-	 					if(point.x < 1600)
-	 					{	printf("1- je suis la arrierePlan[%i]\n",pl);
-							SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan	
-						}
-						else
-							if(pl==1 )
+	 					if(point.x >= 1600)
+	 					{	
+	 					if(pl==1 )
 								pl = 2;
 							else 
 								if(pl==2)
@@ -467,17 +501,24 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 										point.x=departX;
 										point.y=departY;
 									}
+						}
+						
+						printf("1- je suis la arrierePlan[%i]\n",pl);
+						SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
+						
+						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
+ 						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScore); // surface score
 
- 						SDL_BlitSurface(Stexte[0], NULL, win_surf, &positionTemps);
- 						SDL_BlitSurface(Stexte[3], NULL, win_surf, &pScord); // surface scord
- 						/** affichage obstacle **/
-						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);
- 						
  						if(d<7)//gestion du difilement d'images			
 							SDL_BlitSurface(imgDroit[d++], NULL, win_surf, &point);	
 						else
 							d=0;/** remise à zéro du compteur d'images **/
-							
+						
+						if(pl==1)		
+						SDL_BlitSurface(imgObstacle[0], NULL, win_surf, &pSerp);/** affichage obstacle **/
+						if(pl==2)
+						SDL_BlitSurface(imgObstacle[1], NULL, win_surf, &pSerp);/** affichage obstacle **/
+		
 						break;	
 				}	
 				
@@ -488,10 +529,13 @@ int jeu1(SDL_Window * window, SDL_Renderer *renderer)
 		SDL_UpdateWindowSurface(window);//actualisation de la page.	
     }
     
+    printf(" je sort par la ************* jeu1 \n");
     if(temp==FAUX)
     
 		continuer=FAUX;
-  
+  	
+  	SDL_BlitSurface (arrierePlan[pl], NULL,win_surf, &dest_rect); // arrière plan
+  	
     liberation_ressourcesSurface(imgBas);/** libération des surfaces  **/
     liberation_ressourcesSurface(imgHaut);
     liberation_ressourcesSurface(imgGauche);
